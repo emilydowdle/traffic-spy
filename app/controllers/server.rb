@@ -7,5 +7,10 @@ module TrafficSpy
     not_found do
       erb :error
     end
+
+    post '/sources' do
+    response.status
+    end
+
   end
 end
