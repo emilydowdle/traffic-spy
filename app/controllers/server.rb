@@ -9,7 +9,13 @@ module TrafficSpy
     end
 
     post '/sources' do
-    response.status
+      source = Source.new(params)
+      if source.save
+        response.status
+      else
+        status 400
+        task.errors.full_messages.join
+      end
     end
 
   end
