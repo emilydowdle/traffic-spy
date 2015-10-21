@@ -16,15 +16,39 @@ class TrafficSpyAppTest < Minitest::Test
   end
 
   def test_can_submit_post_and_get_200_ok
+
     post '/sources', { identifier: "something",
                        rootUrl:    "else" }
 
     assert_equal 200, last_response.status
   end
 
-  def test_returns_400_if_missing_title
+  def test_returns_400_if_missing_identifier
+
     post '/sources', { rootUrl:    "else" }
     assert_equal 400, last_response.status
+    assert_equal "Identifier can't be blank", last_response.body
+  end
+
+  def test_returns_400_if_missing_rootUrl
+
+    post '/sources', { identifier:  "something" }
+    assert_equal 400, last_response.status
+    assert_equal "Rooturl can't be blank", last_response.body
+  end
+
+  def test_returns_403_if_identifier_already_exists
+    post '/sources', { identifier: "something",
+                       rootUrl:    "else" }
+
+    assert_equal 200, last_response.status
+
+    post '/sources', { identifier: "something",
+                       rootUrl:    "something else" }
+
+    assert_equal 403, last_response.status
+    assert_equal "Identifier already exists", last_response.body
+    # need a message here
   end
 
 end

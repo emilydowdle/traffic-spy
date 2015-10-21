@@ -1,3 +1,5 @@
+require_relative '../models/registration_response'
+
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
@@ -9,6 +11,14 @@ module TrafficSpy
     end
 
     post '/sources' do
+      # RegistrationResponse.confirm_unique_identifier(params)
+      sources = Source.all
+      sources.each do |row|
+        if row.identifier == params[:identifier]
+          status 403
+          response.body << "Identifier already exists"
+        end
+      end
       source = Source.new(params)
       if source.save
         response.status
