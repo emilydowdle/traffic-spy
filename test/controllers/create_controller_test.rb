@@ -67,6 +67,7 @@ class TrafficSpyAppTest < Minitest::Test
 
     assert_equal
     assert_equal "", last_response.body
+    
   end
 
 
