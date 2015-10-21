@@ -1,4 +1,5 @@
 require_relative '../models/registration_response'
+require 'pry'
 
 module TrafficSpy
   class Server < Sinatra::Base
@@ -22,6 +23,7 @@ module TrafficSpy
       source = Source.new(params)
       if source.save
         response.status
+        response.body << "{ #{params[:identifier]} => #{params[:rootUrl]} }"
       else
         status 400
         source.errors.full_messages.join
