@@ -21,8 +21,8 @@ class PayloadTest < Minitest::Test
   end
 
   def test_receives_success_200_ok
-    post '/sources/:identifier/data'
-    
+    post '/sources/:identifier/data', 
+
       assert_equal 200, last_response
       assert_equal "Success", last_response.body
   end
