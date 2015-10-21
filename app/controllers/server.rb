@@ -1,5 +1,4 @@
 require_relative '../models/registration_response'
-require 'pry'
 
 module TrafficSpy
   class Server < Sinatra::Base
@@ -17,6 +16,8 @@ module TrafficSpy
     end
 
     post '/sources' do
+      # FIX THIS BROKEN< SORT OF
+
       # RegistrationResponse.confirm_unique_identifier(params)
       sources = Source.all
       sources.each do |row|
@@ -37,6 +38,17 @@ module TrafficSpy
 
     get '/sources/:identifier' do
       response.body << "That identifier does not exist"
+    end
+
+    post '/sources/:identifier/data' do
+      data = JSON.parse(params[:payload])
+      url = Url.new(data["url"])
+      if url.save
+        puts "Awesome sauce"
+      else
+        status 400
+        task.errors.full_messages.join
+      end
     end
 
 
