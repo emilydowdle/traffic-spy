@@ -30,5 +30,10 @@ module TrafficSpy
       end
     end
 
+    get '/sources/:identifier' do
+      response.body << "That identifier does not exist"
+    end
+
+
   end
 end
