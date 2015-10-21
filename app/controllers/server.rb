@@ -41,6 +41,7 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do
+      
       data = JSON.parse(params[:payload])
       url = Url.new(data["url"])
       if url.save
