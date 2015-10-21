@@ -36,9 +36,9 @@ module TrafficSpy
       end
     end
 
-    get '/sources/:identifier' do
-      response.body << "That identifier does not exist"
-    end
+    # get '/sources/:identifier' do
+    #   response.body << "That identifier does not exist"
+    # end
 
     post '/sources/:identifier/data' do
       binding.pry
@@ -53,25 +53,26 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do
-      # url_counts = {}
+      url_counts = {}
 
-      # payload.identifier.url.each do |url|
-      # if url_counts.has_key?(url)
-      #   url_counts[url] += 1
-      # else
-      #   url_counts[url] = 0
-      # end
-      # url_counts.sort_by {|k, v| v}
-      #
-
-      data = JSON.parse(params[:payload])
-      url = Url.new(data["url"])
-      if url.save
-        puts "Awesome sauce"
-      else
-        status 400
-        task.errors.full_messages.join
+      binding.pry
+      payload.identifier.url.each do |url|
+        if url_counts.has_key?(url)
+          url_counts[url] += 1
+        else
+          url_counts[url] = 0
+        end
+        url_counts.sort_by {|k, v| v}
       end
+
+      # data = JSON.parse(params[:payload])
+      # url = Url.new(data["url"])
+      # if url.save
+      #   puts "Awesome sauce"
+      # else
+      #   status 400
+      #   task.errors.full_messages.join
+      # end
     end
 
 

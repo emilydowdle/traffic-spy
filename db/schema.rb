@@ -11,23 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021182628) do
+ActiveRecord::Schema.define(version: 20151021234532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "payloads", force: :cascade do |t|
-    t.text "url"
-    t.text "requestedAt"
-    t.text "respondedIn"
-    t.text "referredBy"
-    t.text "requestType"
-    t.text "eventName"
-    t.text "userAgent"
-    t.text "resolutionWidth"
-    t.text "resolutionHeight"
-    t.text "ip"
+    t.text    "url"
+    t.text    "requestedAt"
+    t.text    "referredBy"
+    t.text    "requestType"
+    t.text    "eventName"
+    t.text    "userAgent"
+    t.text    "resolutionWidth"
+    t.text    "resolutionHeight"
+    t.text    "ip"
+    t.integer "respondedIn"
+    t.integer "source_id"
   end
+
+  add_index "payloads", ["source_id"], name: "index_payloads_on_source_id", using: :btree
 
   create_table "sources", force: :cascade do |t|
     t.text     "identifier"
@@ -36,4 +39,9 @@ ActiveRecord::Schema.define(version: 20151021182628) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "urls", force: :cascade do |t|
+    t.text "url"
+  end
+
+  add_foreign_key "payloads", "sources"
 end
