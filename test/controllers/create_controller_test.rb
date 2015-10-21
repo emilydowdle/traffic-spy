@@ -1,5 +1,6 @@
 require './test/test_helper'
 require 'tilt/erb'
+
 module TrafficSpy
   class TrafficSpyAppTest < Minitest::Test
     include Rack::Test::Methods

@@ -63,6 +63,15 @@ module TrafficSpy
       # end
       # url_counts.sort_by {|k, v| v}
       #
+
+      data = JSON.parse(params[:payload])
+      url = Url.new(data["url"])
+      if url.save
+        puts "Awesome sauce"
+      else
+        status 400
+        task.errors.full_messages.join
+      end
     end
 
 
