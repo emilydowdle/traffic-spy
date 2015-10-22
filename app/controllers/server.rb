@@ -27,13 +27,13 @@ module TrafficSpy
         end
       end
       source = Source.new(params)
-      if source.save
-        response.status
-        response.body << "{ #{params[:identifier]} => #{params[:rootUrl]} }"
-      else
-        status 400
-        source.errors.full_messages.join
-      end
+        if source.save
+          response.status
+          response.body << "{ #{params[:identifier]} => #{params[:rootUrl]} }"
+        else
+          status 400
+          source.errors.full_messages.join
+        end
     end
 
     get '/sources/:identifier' do
@@ -41,28 +41,14 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do
-      binding.pry
-      # data = JSON.parse(params[:payload])
-      # url = Url.new(data["url"])
-      # if url.save
-      #   puts "Awesome sauce"
-      # else
-      #   status 400
-      #   task.errors.full_messages.join
-      # end
+      data = JSON.parse(params['payload'])
+      if params["payload"].empty? || params["payload"].nil?
+        status 400
+        response.body "Bad Request: Missing Payload"
+      end
     end
 
     get '/sources/:identifier' do
-      # url_counts = {}
-
-      # payload.identifier.url.each do |url|
-      # if url_counts.has_key?(url)
-      #   url_counts[url] += 1
-      # else
-      #   url_counts[url] = 0
-      # end
-      # url_counts.sort_by {|k, v| v}
-      #
 
       data = JSON.parse(params[:payload])
       url = Url.new(data["url"])
@@ -77,3 +63,25 @@ module TrafficSpy
 
   end
 end
+
+
+      # url_counts = {}
+
+      # payload.identifier.url.each do |url|
+      # if url_counts.has_key?(url)
+      #   url_counts[url] += 1
+      # else
+      #   url_counts[url] = 0
+      # end
+      # url_counts.sort_by {|k, v| v}
+      #
+
+
+
+      # url = Url.new(data["url"])
+      # if url.save
+      #   puts "Awesome sauce"
+      # else
+      #   status 400
+      #   task.errors.full_messages.join
+      # end
