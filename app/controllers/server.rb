@@ -21,24 +21,9 @@ module TrafficSpy
     end
 
     post '/sources' do
-      # FIX THIS BROKEN< SORT OF
-
-      # RegistrationResponse.confirm_unique_identifier(params)
-      sources = Source.all
-      sources.each do |row|
-        if row.identifier == params[:identifier]
-          status 403
-          response.body << "Identifier already exists"
-        end
-      end
-      source = Source.new(params)
-        if source.save
-          response.status
-          response.body << "{ #{params[:identifier]} => #{params[:rootUrl]} }"
-        else
-          status 400
-          source.errors.full_messages.join
-        end
+      source = Processor.source_process(params)
+      status process[:status]
+      body   process[:body]
     end
 
     post '/sources/:identifier/data' do

@@ -18,4 +18,21 @@ class Processor
       end
     end
   end
+
+  def self.source_process(params)
+    sources = Source.all
+    sources.each do |row|
+      if row.identifier == params[:identifier]
+        {:status=> 403, :body=> "Identifier already exists"}
+      end
+    end
+    source = Source.new(params)
+    binding.pry
+      if source.save
+        {:status=> 200, :body=> "{ #{params[:identifier]} => #{params[:rootUrl]} }"}
+      else
+        {:status=> 400, :body=> (source.errors.full_messages.join).to_s}
+      end
+  end
+
 end
