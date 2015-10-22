@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021234532) do
+ActiveRecord::Schema.define(version: 20151022021256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20151021234532) do
     t.text    "ip"
     t.integer "respondedIn"
     t.integer "source_id"
+    t.text    "parameters"
   end
 
   add_index "payloads", ["source_id"], name: "index_payloads_on_source_id", using: :btree

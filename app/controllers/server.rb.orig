@@ -37,20 +37,24 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do
-      source = Source.find_by(identifier: params[:identifier])
-      data = JSON.parse(params[:payload])
-            
+<<<<<<< HEAD
+      data = JSON.parse(params['payload'])
       if data.empty? || data.nil?
         status 400
         body "Bad Request: Missing Payload"
       end
-
-	  source.payloads.create(data)
-
+=======
+      source = Source.find_by(identifier: params[:identifier])
+      data = JSON.parse(params[:payload])
+      source.payloads.create(data)
+>>>>>>> app
     end
 
     get '/sources/:identifier' do
 
+<<<<<<< HEAD
+    url_counts = {}
+=======
       # binding.pry
       payload.identifier.url.each do |url|
         if url_counts.has_key?(url)
@@ -60,6 +64,16 @@ module TrafficSpy
         end
         url_counts.sort_by {|k, v| v}
       end
+>>>>>>> app
+
+    payload.identifier.url.each do |url|
+      if url_counts.has_key?(url)
+        url_counts[url] += 1
+      else
+        url_counts[url] = 0
+      end
+      url_counts.sort_by {|k, v| v}
+    end
 
     data = JSON.parse(params[:payload])
     url = Url.new(data["url"])
