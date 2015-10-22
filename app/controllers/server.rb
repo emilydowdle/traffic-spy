@@ -22,8 +22,9 @@ module TrafficSpy
 
     post '/sources' do
       source = Processor.source_process(params)
-      status process[:status]
-      body   process[:body]
+      # binding.pry
+      status source[:status]
+      body   source[:body]
     end
 
     post '/sources/:identifier/data' do
