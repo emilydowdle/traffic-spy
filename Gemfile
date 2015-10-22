@@ -7,6 +7,7 @@ gem 'sinatra-activerecord'
 gem 'pry'
 gem 'json'
 gem 'digest'
+gem 'table_print'
 
 group :development, :test do
   gem 'shotgun'
