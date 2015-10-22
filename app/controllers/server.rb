@@ -44,11 +44,16 @@ module TrafficSpy
     post '/sources/:identifier/data' do
       source = Source.find_by(identifier: params[:identifier])
       data = JSON.parse(params[:payload])
-      source.payloads.create(data)
-
-      if data.empty? || data.nil?
+      if source.nil?
+        status 403
+        body 'unregistered user'
+      elsif data.empty? || data.nil?
         status 400
         body "Bad Request: Missing Payload"
+      else
+        source.payloads.create(data)
+        status 200
+        body "payload registered"
       end
 
     end
@@ -64,6 +69,11 @@ module TrafficSpy
         end
         url_counts.sort_by {|k, v| v}
       end
+
+    post '/sources/IDENTIFIER/events' do
+
+
+    end
 
     # data = JSON.parse(params[:payload])
     # url = Url.new(data["url"])
