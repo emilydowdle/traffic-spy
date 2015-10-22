@@ -9,6 +9,7 @@ require 'minitest/pride'
 require 'capybara'
 require 'database_cleaner'
 require 'pry'
+require 'tilt/erb'
 
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 Capybara.app = TrafficSpy::Server
@@ -21,4 +22,9 @@ class Minitest::Test
   def teardown
     DatabaseCleaner.clean
   end
+
+end
+
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
 end

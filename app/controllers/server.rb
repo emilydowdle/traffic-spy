@@ -42,26 +42,9 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do
-      source = Source.find_by(identifier: params[:identifier])
-      digest = Digest::SHA2.hexdigest(params[:payload])
-      data = JSON.parse(params[:payload])
-      data["digest"] = digest
-      # Payload.find_by(digest: digest).exists?
-      if Payload.exists?("digest" => digest)
-        status 403
-        body "duplicate payload"
-      elsif source.nil?
-        status 403
-        body 'unregistered user'
-      elsif data.empty? || data.nil?
-        status 400
-        body "Bad Request: Missing Payload"
-      else
-        source.payloads.create(data)
-        status 200
-        body "payload registered"
-      end
-
+      process = Processor.payload_process(params)
+      status process[:status]
+      body   process[:body]
     end
 
     get '/sources/:identifier' do
@@ -75,54 +58,7 @@ module TrafficSpy
         end
         url_counts.sort_by {|k, v| v}
       end
-
-    post '/sources/IDENTIFIER/events' do
-
-
     end
-
-    # data = JSON.parse(params[:payload])
-    # url = Url.new(data["url"])
-    # if url.save
-    #   puts "Awesome sauce"
-    # else
-    #   status 400
-    #   task.errors.full_messages.join
-    # end
-  end
 
   end
 end
-
-    # get '/sources/:identifier' do
-    #   response.body << "That identifier does not exist"
-    # end
-
-    # data = JSON.parse(params[:payload])
-    # url = Url.new(data["url"])
-    # if url.save
-    #   puts "Awesome sauce"
-    # else
-    #   status 400
-    #   task.errors.full_messages.join
-    # end
-
-
-    # url_counts = {}
-
-    # payload.identifier.url.each do |url|
-    # if url_counts.has_key?(url)
-    #   url_counts[url] += 1
-    # else
-    #   url_counts[url] = 0
-    # end
-    # url_counts.sort_by {|k, v| v}
-    #
-
-    # url = Url.new(data["url"])
-    # if url.save
-    #   puts "Awesome sauce"
-    # else
-    #   status 400
-    #   task.errors.full_messages.join
-    # end
