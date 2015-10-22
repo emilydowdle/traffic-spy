@@ -60,6 +60,7 @@ module TrafficSpy
         url_counts.sort_by {|k, v| v}
       end
 
+      
     # data = JSON.parse(params[:payload])
     # url = Url.new(data["url"])
     # if url.save
