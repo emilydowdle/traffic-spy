@@ -3,8 +3,6 @@ require 'json'
 
 class PayloadParser
 
-
-
   def initialize(params)
     @params = params
   end

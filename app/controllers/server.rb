@@ -41,21 +41,15 @@ module TrafficSpy
     # end
 
     post '/sources/:identifier/data' do
-      binding.pry
-      # data = JSON.parse(params[:payload])
-      # url = Url.new(data["url"])
-      # if url.save
-      #   puts "Awesome sauce"
-      # else
-      #   status 400
-      #   task.errors.full_messages.join
-      # end
+      source = Source.find_by(identifier: params[:identifier])
+      data = JSON.parse(params[:payload])
+      source.payloads.create(data)
     end
 
     get '/sources/:identifier' do
       url_counts = {}
 
-      binding.pry
+      # binding.pry
       payload.identifier.url.each do |url|
         if url_counts.has_key?(url)
           url_counts[url] += 1
