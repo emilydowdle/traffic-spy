@@ -39,14 +39,13 @@ module TrafficSpy
     post '/sources/:identifier/data' do
       source = Source.find_by(identifier: params[:identifier])
       data = JSON.parse(params[:payload])
-            
+      source.payloads.create(data)
+
       if data.empty? || data.nil?
         status 400
         body "Bad Request: Missing Payload"
       end
-
-	  source.payloads.create(data)
-
+      
     end
 
     get '/sources/:identifier' do

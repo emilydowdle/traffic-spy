@@ -98,13 +98,13 @@ module TrafficSpy
       assert_equal "", last_response.body
     end
 
-    def test_curl_request_can_be_processed
+    def test_valid_request_can_be_processed
       post '/sources', { identifier: "jumpstartlab",
                          rootUrl:    "http://jumpstartlab.com" }
 
       post '/sources/jumpstartlab/data', PARAMS
 
-      assert_equal "http://jumpstartlab.com/blog", data["url"]
+      assert_equal 200, last_response.status
     end
 
   end
