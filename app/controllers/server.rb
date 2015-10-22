@@ -45,29 +45,29 @@ module TrafficSpy
         status 400
         body "Bad Request: Missing Payload"
       end
-      
+
     end
 
     get '/sources/:identifier' do
-
-      # binding.pry
-      payload.identifier.url.each do |url|
-        if url_counts.has_key?(url)
-          url_counts[url] += 1
+      url_counts = {}
+      source = Source.find_by(identifier: params[:identifier])
+      source.payloads.each do |payload|
+        if url_counts.has_key?(payload.url)
+          url_counts[payload.url] += 1
         else
-          url_counts[url] = 0
+          url_counts[payload.url] = 1
         end
         url_counts.sort_by {|k, v| v}
       end
 
-    data = JSON.parse(params[:payload])
-    url = Url.new(data["url"])
-    if url.save
-      puts "Awesome sauce"
-    else
-      status 400
-      task.errors.full_messages.join
-    end
+    # data = JSON.parse(params[:payload])
+    # url = Url.new(data["url"])
+    # if url.save
+    #   puts "Awesome sauce"
+    # else
+    #   status 400
+    #   task.errors.full_messages.join
+    # end
   end
 
   end

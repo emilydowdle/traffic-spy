@@ -107,5 +107,16 @@ module TrafficSpy
       assert_equal 200, last_response.status
     end
 
+    def test_can_find_visited_urls_by_occurence
+      post '/sources', { identifier: "jumpstartlab",
+                         rootUrl:    "http://jumpstartlab.com" }
+
+      post '/sources/jumpstartlab/data', PARAMS
+
+      get '/sources/jumpstartlab'
+      
+      assert_equal 200, last_response.status
+    end
+
   end
 end
