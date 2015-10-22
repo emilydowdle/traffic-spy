@@ -43,12 +43,23 @@ module TrafficSpy
 
     post '/sources/:identifier/data' do
       source = Source.find_by(identifier: params[:identifier])
+      digest = Digest::SHA2.hexdigest(params[:payload])
       data = JSON.parse(params[:payload])
-      source.payloads.create(data)
-
-      if data.empty? || data.nil?
+      data["digest"] = digest
+      # Payload.find_by(digest: digest).exists?
+      if Payload.exists?("digest" => digest)
+        status 403
+        body "duplicate payload"
+      elsif source.nil?
+        status 403
+        body 'unregistered user'
+      elsif data.empty? || data.nil?
         status 400
         body "Bad Request: Missing Payload"
+      else
+        source.payloads.create(data)
+        status 200
+        body "payload registered"
       end
 
     end
@@ -65,7 +76,11 @@ module TrafficSpy
         url_counts.sort_by {|k, v| v}
       end
 
-      
+    post '/sources/IDENTIFIER/events' do
+
+
+    end
+
     # data = JSON.parse(params[:payload])
     # url = Url.new(data["url"])
     # if url.save
