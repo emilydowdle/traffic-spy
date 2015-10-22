@@ -26,6 +26,7 @@ class PayloadTest < Minitest::Test
   end
 
   def test_receives_success_200_ok
+    Source.create(identifier: "jumpstartlab", rootUrl: )
     post '/sources/:identifier/data', PARAMS
     assert_equal 200, last_response.status
   end
