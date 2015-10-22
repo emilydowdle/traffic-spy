@@ -11,6 +11,11 @@ module TrafficSpy
       erb :sources_index
     end
 
+    get '/sources/:identifier' do |identifier|
+      @identifier = identifier
+      erb :sources
+    end
+
     not_found do
       erb :error
     end
