@@ -79,7 +79,7 @@ module TrafficSpy
     end
 
     def test_unregistered_user_cannot_access_user_dashboard
-      skip
+      skip #should be a feature test using capybara
       post '/sources', { identifier: "something",
                          rootUrl:    "something else" }
 
@@ -113,8 +113,8 @@ module TrafficSpy
 
       post '/sources/jumpstartlab/data', PARAMS
 
-      get '/sources/jumpstartlab'
-      
+      get '/sources/jumpstartlab' #possible feature test
+
       assert_equal 200, last_response.status
     end
 
