@@ -9,7 +9,7 @@ class PayloadTest < Minitest::Test
           "splat"=>[],
           "captures"=>["jumpstartlab"],
           "identifier"=>"jumpstartlab"}
-          
+
   def app
     TrafficSpy::Server
   end
@@ -27,16 +27,13 @@ class PayloadTest < Minitest::Test
 
   def test_receives_success_200_ok
     post '/sources/:identifier/data', PARAMS
-
     assert_equal 200, last_response.status
   end
 
   def test_receives_400_bad_request_for_missing_payload
-    skip
-    post '/sources/:identifier/data', nil.to_s
-
-    assert_equal 400, response.status
-    assert_equal "Bad Request: Missing Payload"
+    post '/sources/:identifier/data', {"payload" => "{}"}
+    assert_equal 400, last_response.status
+    assert_equal "Bad Request: Missing Payload", last_response.body
   end
 
 end

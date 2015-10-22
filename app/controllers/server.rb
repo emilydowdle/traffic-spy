@@ -38,9 +38,9 @@ module TrafficSpy
 
     post '/sources/:identifier/data' do
       data = JSON.parse(params['payload'])
-      if params["payload"].empty? || params["payload"].nil?
+      if data.empty? || data.nil?
         status 400
-        response.body "Bad Request: Missing Payload"
+        body "Bad Request: Missing Payload"
       end
     end
 
@@ -66,7 +66,7 @@ module TrafficSpy
       task.errors.full_messages.join
     end
   end
-  
+
   end
 end
 
@@ -94,8 +94,6 @@ end
     # end
     # url_counts.sort_by {|k, v| v}
     #
-
-
 
     # url = Url.new(data["url"])
     # if url.save
