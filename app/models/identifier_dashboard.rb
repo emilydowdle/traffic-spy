@@ -2,24 +2,29 @@ require_relative '../controllers/server'
 
 class Dashboard
 
-  def self.sort_urls_by_visit(identifier)
-    url_counts = {}
-    source = Source.find_by(identifier: identifier)
-    source.payloads.each do |payload|
-      if url_counts.has_key?(payload.url)
-        url_counts[payload.url] += 1
-      else
-        url_counts[payload.url] = 1
-      end
-      url_counts.sort_by {|k, v| v}
-    end
-    url_counts.to_a
+  def self.populate_dashboard(identifier)
+    url_data = sort_urls_by_visit(identifier)
+    display_browser_data(identifier, url_data)
   end
 
-  def self.display_browser_data(identifier)
-    browser_data = {}
+  def sort_urls_by_visit(identifier, url_data={})
+    url_data = {}
     source = Source.find_by(identifier: identifier)
     source.payloads.each do |payload|
+      if url_data.has_key?(payload.url)
+        url_data[payload.url][:visited] +=1
+      else
+        url_data[payload.url] = { visited: 1 }
+      end
+      url_data.sort_by {|k, v| v}
+    end
+    url_data
+  end
+
+  def display_browser_data(identifier, url_data)
+    source = Source.find_by(identifier: identifier)
+    source.payloads.each do |payload|
+      binding.pry
       browser = UserAgent.parse(payload.userAgent).browser
       if browser_data.has_key?(browser)
         browser_data[browser] += 1
@@ -31,7 +36,7 @@ class Dashboard
     browser_data.to_a
   end
 
-  def self.display_os_data(identifier)
+  def display_os_data(identifier)
     os_data = {}
     source = Source.find_by(identifier: identifier)
     source.payloads.each do |payload|
