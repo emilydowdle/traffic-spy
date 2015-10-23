@@ -5,9 +5,9 @@ class EventTest < Minitest::Test
 
   def test_events_sorted_by_visit
     create_source_and_payload
-
-    binding.pry
-    assert_equal [["socialLogin", 1]], Event.sort_events_received("jumpstartlab")
+    create_additional_payloads
+    source = Source.find_by(identifier: "jumpstartlab")
+    assert_equal({"socialLogin"=> 2, "bannerClick"=> 1}, source.sort_events_received)
 
   end
 
