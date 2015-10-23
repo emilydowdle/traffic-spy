@@ -10,7 +10,6 @@ class DashboardTest < Minitest::Test
 
     assert_equal [["http://jumpstartlab.com/blog", 1]], Dashboard.sort_urls_by_visit("jumpstartlab")
     assert_equal [["http://google.com/analytics", 1]], Dashboard.sort_urls_by_visit("google")
-
   end
 
   def test_browser_data_across_all_requests
