@@ -1,4 +1,7 @@
 class UrlStat
-  def create
+  def initialize(payload)
+    @payload = payload
   end
+
+  
 end

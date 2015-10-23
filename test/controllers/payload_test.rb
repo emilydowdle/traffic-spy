@@ -20,6 +20,7 @@ class PayloadTest < Minitest::Test
 
   def test_receives_403_unregistered_user
     post '/sources/jumpstartlab/data', standard_payload
+    binding.pry
     assert_equal 403, last_response.status
     assert_equal "unregistered user", last_response.body
   end
