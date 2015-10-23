@@ -51,5 +51,10 @@ module TrafficSpy
       erb :urls
     end
 
+    get '/sources/IDENTIFIER/events' do
+      @events = EventManager.all
+      erb :events_index
+    end
+
   end
 end
