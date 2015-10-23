@@ -8,6 +8,7 @@ gem 'pry'
 gem 'json'
 gem 'digest'
 gem 'table_print'
+gem 'useragent'
 
 group :development, :test do
   gem 'shotgun'
@@ -17,7 +18,6 @@ group :development, :test do
   gem 'launchy'
   gem 'rack-test'
   gem 'database_cleaner'
-  gem 'useragent'
   gem 'hirb'
 end
 
