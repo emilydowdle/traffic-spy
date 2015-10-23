@@ -16,6 +16,7 @@ Capybara.app = TrafficSpy::Server
 
 class Minitest::Test
   include Rack::Test::Methods
+  include Capybara::DSL
 
   def setup
     DatabaseCleaner.start
@@ -29,9 +30,8 @@ class Minitest::Test
     TrafficSpy::Server
   end
 
-  def source_create
-    source = Source.create({ identifier: "jumpstartlab",
-                             rootUrl:    "http://jumpstartlab.com" })
+  def source_find(standard_payload)
+    source = Source.find_by(identifier: params[:identifier])
   end
 
   def standard_payload
@@ -46,6 +46,22 @@ class Minitest::Test
                       \"resolutionWidth\":\"1920\",
                       \"resolutionHeight\":\"1280\",
                       \"ip\":\"63.29.38.211\" }"}
+  end
+
+  def multiple_payload(num)
+    num.times do
+      return { "payload"=> "{  \"url\":\"http://jumpstartlab.com/blog\",
+                      \"requestedAt\":\"2013-02-16 21:38:28 -0700\",
+                      \"respondedIn\":37,
+                      \"referredBy\":\"http://jumpstartlab.com\",
+                      \"requestType\":\"GET\",
+                      \"parameters\":[],
+                      \"eventName\": \"socialLogin\",
+                      \"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",
+                      \"resolutionWidth\":\"1920\",
+                      \"resolutionHeight\":\"1280\",
+                      \"ip\":\"63.29.38.211\" }"}
+                    end
   end
 
   def create_source_and_payload

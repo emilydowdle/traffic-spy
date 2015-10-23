@@ -45,8 +45,10 @@ module TrafficSpy
       source = Source.find_by(:identifier)
     end
 
-    get '/sources/:identifier/urls/:relative_path' do
-      erb :sources
+    get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
+      @identifier = identifier
+      @relative_path = relative_path
+      erb :urls
     end
 
   end
