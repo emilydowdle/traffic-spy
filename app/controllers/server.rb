@@ -2,7 +2,7 @@ require_relative '../models/registration_response'
 
 module TrafficSpy
   class Server < Sinatra::Base
-    
+
     get '/' do
       erb :index
     end
@@ -44,6 +44,11 @@ module TrafficSpy
         end
         url_counts.sort_by {|k, v| v}
       end
+    end
+
+    get '/sources/:identifier/events' do |identifier|
+      @identifier = identifier
+      erb :events
     end
 
     get '/sources/:identifier/events/:eventname' do
