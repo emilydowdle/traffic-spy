@@ -1,11 +1,18 @@
-class Event
-  attr_reader :title,
-              :description,
-              :id
+require_relative '../controllers/server'
 
-  def initialize(data)
-    @id          = data[:id]
-    @title       = data[:title]
-    @description = data[:description]
+class Event
+
+  def self.sort_events_received(identifier)
+    event_hash = {}
+    source = Source.find_by(identifier: identifier)
+    binding.pry
+    source.payloads.each do |payload|
+      if event_hash.has_key?(payload.eventName)
+        p payload.eventName
+      end
+    end
+
   end
+
+
 end
