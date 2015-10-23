@@ -46,5 +46,11 @@ module TrafficSpy
       end
     end
 
+    get '/sources/:identifier/events' do |identifier|
+      @identifier = identifier
+      erb :events
+    end
+
+
   end
 end
