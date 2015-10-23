@@ -1,4 +1,5 @@
 require_relative '../models/registration_response'
+require_relative '../models/identifier_dashboard'
 
 module TrafficSpy
   class Server < Sinatra::Base
@@ -34,16 +35,8 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do
-      url_counts = {}
-      source = Source.find_by(identifier: params[:identifier])
-      source.payloads.each do |payload|
-        if url_counts.has_key?(payload.url)
-          url_counts[payload.url] += 1
-        else
-          url_counts[payload.url] = 1
-        end
-        url_counts.sort_by {|k, v| v}
-      end
+      binding.pry
+      Dashboard.sort_urls_by_visit(params)
     end
 
     get '/sources/:identifier/events' do |identifier|
