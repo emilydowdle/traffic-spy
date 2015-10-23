@@ -21,4 +21,13 @@ class DashboardTest < Minitest::Test
     assert_equal [["Chrome", 1]], Dashboard.display_browser_data("jumpstartlab")
     assert_equal [["Chrome", 1]], Dashboard.display_browser_data("google")
   end
+
+  def test_os_data_across_all_requests
+    create_source_and_payload
+    create_second_source_and_payload
+    create_third_source_and_payload
+
+    assert_equal [["Macintosh", 1]], Dashboard.display_os_data("jumpstartlab")
+    assert_equal [["Macintosh", 1]], Dashboard.display_os_data("google")
+  end
 end

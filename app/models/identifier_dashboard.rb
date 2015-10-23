@@ -17,7 +17,6 @@ class Dashboard
   end
 
   def self.display_browser_data(identifier)
-
     browser_data = {}
     source = Source.find_by(identifier: identifier)
     source.payloads.each do |payload|
@@ -30,6 +29,21 @@ class Dashboard
       browser_data.sort_by {|k, v| v}
     end
     browser_data.to_a
+  end
+
+  def self.display_os_data(identifier)
+    os_data = {}
+    source = Source.find_by(identifier: identifier)
+    source.payloads.each do |payload|
+      os = UserAgent.parse(payload.userAgent).platform
+      if os_data.has_key?(os)
+        os_data[os] += 1
+      else
+        os_data[os] = 1
+      end
+      os_data.sort_by {|k, v| v}
+    end
+    os_data.to_a
   end
 
 end
