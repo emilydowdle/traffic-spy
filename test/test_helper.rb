@@ -38,7 +38,8 @@ class Minitest::Test
                       \"parameters\":[],
                       \"eventName\": \"socialLogin\",
                       \"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",
-                      \"resolutionWidth\":\"1920\",\"resolutionHeight\":\"1280\",
+                      \"resolutionWidth\":\"1920\",
+                      \"resolutionHeight\":\"1280\",
                       \"ip\":\"63.29.38.211\" }"}
   end
 
@@ -59,7 +60,34 @@ class Minitest::Test
                              "resolutionHeight"=>"1280",
                              "ip"=>"63.29.38.211" })
   end
-  
+
+  def create_payload(payload_data)
+    payload_data[:url] = 'http://jumpstartlab.com/blog' if payload_data[:url].nil?
+    payload_data[:requestedAt] = "2013-02-16 21:38:28 -0700" if payload_data[:requestedAt].nil?
+    payload_data[:respondedIn] = 37 if payload_data[:respondedIn].nil?
+    payload_data[:referredBy] = "http://jumpstartlab.com" if payload_data[:referredBy].nil?
+    payload_data[:requestType] = "GET" if payload_data[:requestType].nil?
+    payload_data[:parameters] = [] if payload_data[:parameters].nil?
+    payload_data[:event_name] = "socialLogin" if payload_data[:eventName].nil?
+    payload_data[:userAgent] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17" if payload_data[:user_agent].nil?
+    payload_data[:resolutionWidth] = "1920" if payload_data[:resolutionWidth].nil?
+    payload_data[:resolutionHeight] = "1280" if payload_data[:resolutionHeight].nil?
+    payload_data[:requestedAt] = "2013-02-16 21:38:28 -0700" if payload_data[:requestedAt].nil?
+
+    params = {"payload"=>"{\"url\":\"#{payload_data[:url]}\",
+                           \"requestedAt\":\"#{payload_data[:requestedAt]}\",
+                           \"respondedIn\":#{payload_data[:respondedIn]},
+                           \"referredBy\":\"#{payload_data[:referredBy]}\",
+                           \"requestType\":\"#{payload_data[:requestType]}\",
+                           \"parameters\":[],
+                           \"eventName\":\"#{payload_data[:eventName]}\",
+                           \"userAgent\":\"#{payload_data[:userAgent]}\",
+                           \"resolutionWidth\":\"#{payload_data[:resolutionWidth]}\",
+                           \"resolutionHeight\":\"#{payload_data[:resolutionHeight]}\",
+                           \"ip\":\"#{payload_data[:ip]}\"}"
+              }
+  end
+
 end
 
 class FeatureTest < Minitest::Test
