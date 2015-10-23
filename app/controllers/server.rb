@@ -15,6 +15,7 @@ module TrafficSpy
 
     get '/sources/:identifier' do |identifier|
       @identifier = identifier
+      Dashboard.sort_urls_by_visit(identifier)
       erb :sources
     end
 
@@ -32,11 +33,6 @@ module TrafficSpy
       process = Processor.payload_process(params)
       status process[:status]
       body   process[:body]
-    end
-
-    get '/sources/:identifier' do
-      binding.pry
-      Dashboard.sort_urls_by_visit(params)
     end
 
     get '/sources/:identifier/events' do |identifier|

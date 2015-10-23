@@ -3,7 +3,7 @@ require 'tilt/erb'
 
 module TrafficSpy
   class TrafficSpyAppTest < Minitest::Test
-    
+
     def test_can_submit_post_and_get_200_ok
       post '/sources', { identifier: "something",
                          rootUrl:    "else" }
