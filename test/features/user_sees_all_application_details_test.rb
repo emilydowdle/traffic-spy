@@ -2,8 +2,6 @@ require_relative "../test_helper"
 
 class AppDetailTest < FeatureTest
 
-  
-
   def test_user_can_see_url_detail
     create_source_and_payload
 

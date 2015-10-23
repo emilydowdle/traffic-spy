@@ -8,7 +8,7 @@ class UrlStatsTest < FeatureTest
     visit '/sources/jumpstartlab/events/socialLogin'
 
     assert_equal '/sources/jumpstartlab/events/socialLogin', current_path
-    assert page.has_content?("Jumpstart Lab Statistics")
+    assert page.has_content?("Jumpstart Lab Statistics"), "Page has no content  "
   end
 
   def test_user_can_see_most_popular_user_agents

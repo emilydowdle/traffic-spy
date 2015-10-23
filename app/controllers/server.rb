@@ -51,9 +51,9 @@ module TrafficSpy
       erb :events
     end
 
-    get '/sources/:identifier/events/:eventname' do
-      source = Source.find_by(:identifier)
-    end
+    # get '/sources/:identifier/events/:eventname' do
+    #   source = Source.find_by(:identifier)
+    # end
 
   end
 end
