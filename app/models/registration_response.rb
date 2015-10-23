@@ -1,4 +1,4 @@
-class RegistrationResponse < Sinatra::Base
+class RegistrationResponse
 
   def self.confirm_unique_identifier(params)
     sources = Source.all
