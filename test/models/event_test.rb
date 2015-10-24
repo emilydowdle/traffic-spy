@@ -11,4 +11,13 @@ class EventTest < Minitest::Test
 
   end
 
+  def test_find_event_data_over_24hrs
+    create_source_and_payload
+    create_additional_payloads
+    source = Source.find_by(identifier: "jumpstartlab")
+    # binding.pry
+    assert_equal({"socialLogin"=> "1pm", "socialLogin"=> "2pm", "bannerClick"=> "10am"}, source.find_event_data_over_24hrs)
+
+  end
+
 end

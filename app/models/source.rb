@@ -3,18 +3,26 @@ class Source < ActiveRecord::Base
 
   has_many :payloads
   # has_many :events, through: :payloads
-#   [9] pry(#<Source>)> result.keys
-# => ["bannerClick", "socialLogin"]
-# [10] pry(#<Source>)> result["bannerClick"].count
-# => 1
-# [11] pry(#<Source>)> result["socialLogin"].count
-# => 2
 
   def sort_events_received
     event_hash = Hash.new(0)
     payloads.inject(event_hash) do |event_hash, payload|
       event_hash[payload.eventName] += 1
       event_hash
+    end
+  end
+
+  def find_event_data_over_24hrs
+    event_hash = Hash.new
+    source = Source.find_by(identifier: identifier)
+    source.payloads.each do |payload|
+      hour = DateTime.parse(payload.requestedAt).hour
+      mapped = source.payloads.map { |i| hour }
+      check = source.payloads.pluck("requestedAt")
+      binding.pry
+      # {(payload.eventName) hour}.to_h
+      # event_hash
+      # p event_hash
     end
   end
 
