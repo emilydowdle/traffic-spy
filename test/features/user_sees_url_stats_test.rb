@@ -78,7 +78,7 @@ class UrlStatsTest < Minitest::Test
     skip
     visit '/sources/jumpstartlab/urls/blog'
     within("#url_response_times") do
-      assert page.has_content?(/shortest|Shortest/)
+
       assert page.has_content?(37)
     end
   end
@@ -87,7 +87,7 @@ class UrlStatsTest < Minitest::Test
     skip
     visit '/sources/jumpstartlab/urls/blog'
     within("#url_response_times") do
-      assert page.has_content?(/average|Average/)
+      
       assert page.has_content?(37)
     end
   end
@@ -95,7 +95,7 @@ class UrlStatsTest < Minitest::Test
   def test_shows_error_for_url_with_additional_path
     skip
     visit '/sources/jumpstartlab/urls/blog/1'
-    assert page.has_content?("ERROR")
+    assert page.has_content?("There is an error on this page")
   end
 
   def test_shows_data_for_url_with_additional_path
