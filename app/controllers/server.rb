@@ -15,8 +15,7 @@ module TrafficSpy
 
     get '/sources/:identifier' do |identifier|
       @identifier = identifier
-      binding.pry
-      Dashboard.sort_urls_by_visit(identifier)
+      @site_analytics = Dashboard.find_all_data_for_dashboard(identifier)
       erb :sources
     end
 
