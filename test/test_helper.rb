@@ -144,7 +144,7 @@ class Minitest::Test
                              rootUrl:    "http://google.com" })
 
     source.payloads.create({ "url"=>"http://google.com/analytics",
-                             "requestedAt"=>"2013-02-16 21:38:28 -0700",
+                             "requestedAt"=>"2013-02-16 10:38:28 -0700",
                              "respondedIn"=>37,
                              "referredBy"=>"http://jumpstartlab.com",
                              "requestType"=>"GET",
@@ -162,7 +162,7 @@ class Minitest::Test
                              rootUrl:    "http://jumpstartlab.com" })
 
     source.payloads.create({ "url"=>"http://jumpstartlab.com/team",
-                             "requestedAt"=>"2013-02-17 21:38:28 -0700",
+                             "requestedAt"=>"2013-02-16 21:38:28 -0700",
                              "respondedIn"=>20,
                              "referredBy"=>"http://jumpstartlab.com",
                              "requestType"=>"GET",
@@ -179,7 +179,7 @@ class Minitest::Test
                              "rootUrl"    =>    "http://jumpstartlab.com" })
 
     source.payloads.create({ "url"=>"http://jumpstartlab.com/blog",
-                             "requestedAt"=>"2013-02-16 21:38:28 -0700",
+                             "requestedAt"=>"2013-02-16 19:38:28 -0700",
                              "respondedIn"=>37,
                              "referredBy"=>"http://jumpstartlab.com",
                              "requestType"=>"GET",
