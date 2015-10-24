@@ -2,14 +2,49 @@
   <div class='container'>
     <h1 class="navbar-brand"><%= @identifier.capitalize %> Jumpstart Lab Statistics</h1>
     <div>
+      
+    <div id="http_verbs">
+    <ul>
+      <lh>HTTP verbs:</lh>
+      <% @http_verbs.each do |x| %>
+        <li><%= x %></li>
+      <% end %>
+    </ul>
+    </div>
+<!--
 
-    <p>Most requested URLS to least requested URLS (url)</p>
-    <p>Web browser breakdown across all requests (userAgent)</p>
-    <p>OS breakdown across all requests (userAgent)</p>
-    <p>Screen Resolution across all requests (resolutionWidth x resolutionHeight)</p>
-    <p>Longest, average response time per URL to shortest, average response time per URL</p>
-    <p>Hyperlinks of each url to view url specific data</p>
-    <p>Hyperlink to view aggregate event data</p>
-    <P>List of Agents</p>
+    <div id="url_response_times">
+      <ul>
+        <lh>URL Response times:</lh>
+        <li>Longest response time: <%= @url%></li>
+        <li>Shortest response time: <%= @url %></li>
+        <li>Average response time: <%= @url %></li>
+      </ul>
+    </div>
+    <div id="most_reffered_by">
+    <ol>
+      <lh>Most referred by:</lh>
+        <% @referred.each do |x| %>
+          <li><%= x %></li>
+        <% end %>
+    </ol>
+    </div>
+
+    <div id="most_popular_user_agents">
+    <ol>
+      <lh>Most popular user agents:</lh>
+        <% @useragent.each do |x| %>
+          <li><%= x %></li>
+        <% end %>
+    </ol>
+    </div>
+    #
+        <p>
+          Which HTTP verbs have been used
+          <% verb.each do |verb| %>
+            <% verb
+          <%= @verb_count =>
+        </p> -->
+
   </div>
 </header>

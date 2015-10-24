@@ -46,10 +46,95 @@ class UrlStatsTest < Minitest::Test
   def test_that_url_does_not_exist_receives_error
     create_source_and_payload
     visit '/sources/jumpstartlab/urls/asdf'
-    save_and_open_page
     assert page.has_content? ("URL has not been requested")
   end
 
+  def test_user_can_see_response_time
+    create_source_and_payload
+    visit '/source/jumpstartlab/urls/blog'
+    save_and_open_page
+    assert page.has_content? ("GET")
+  end
+
+  #
+  def test_client_can_navigate_to_url_specific_page
+    skip
+    visit '/sources/jumpstartlab/urls/blog'
+    within("h1") do
+      assert page.has_content?("http://jumpstartlab.com/blog/statistics")
+    end
+  end
+
+  def test_can_return_longest_response_time
+    skip
+    visit '/sources/jumpstartlab/urls/blog'
+    within("#url_response_times") do
+      assert page.has_content?(87)
+      assert page.has_content?(/longest|Longest/)
+    end
+  end
+
+  def test_can_return_shortest_response_time
+    skip
+    visit '/sources/jumpstartlab/urls/blog'
+    within("#url_response_times") do
+      assert page.has_content?(/shortest|Shortest/)
+      assert page.has_content?(37)
+    end
+  end
+
+  def test_shows_average_response_time
+    skip
+    visit '/sources/jumpstartlab/urls/blog'
+    within("#url_response_times") do
+      assert page.has_content?(/average|Average/)
+      assert page.has_content?(37)
+    end
+  end
+
+  def test_shows_error_for_url_with_additional_path
+    skip
+    visit '/sources/jumpstartlab/urls/blog/1'
+    assert page.has_content?("ERROR")
+  end
+
+  def test_shows_data_for_url_with_additional_path
+    skip
+    visit '/sources/jumpstartlab/urls/blog/2'
+
+    within("h1") do
+      assert page.has_content?("http://jumpstartlab.com/blog/2 Statistics")
+    end
+
+    within("#url_response_times") do
+      assert page.has_content?(99)
+    end
+  end
+
+  # def test_shows_which_http_verbs_have_been_used
+  #   skip
+  #   visit '/sources/jumpstartlab/urls/blog'
+  #   within("#http_verbs") do
+  #     assert page.has_content?("POST")
+  #   end
+  # end
+  #
+  # def test_most_popular_referred_by
+  #   skip
+  #   visit '/sources/jumpstartlab/urls/blog'
+  #   within("#most_reffered_by") do
+  #     assert page.has_content?("http://jumpstartlab.com")
+  #   end
+  # end
+
+  def test_most_popular_user_agents
+
+    visit '/sources/jumpstartlab/urls/blog'
+    within("#most_popular_user_agents") do
+      assert page.has_content?("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17")
+    end
+  end
+end
 
 
 

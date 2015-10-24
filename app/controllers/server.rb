@@ -33,7 +33,7 @@ module TrafficSpy
       binding.pry
       process = Processor.payload_process(params)
       status process[:status]
-      body   process[:body]
+      body process[:body]
 
     end
 
@@ -51,7 +51,6 @@ module TrafficSpy
       @relative_path = relative_path
       location = Source.find_by(identifier: identifier)
       urls     = location.payloads.pluck(:url)
-
       if urls.include?("#{location.rootUrl}/#{relative_path}")
         erb :urls
       else
