@@ -13,11 +13,17 @@ class DashboardTest < Minitest::Test
   end
 
   def test_browser_data_across_all_requests
-    create_additional_payload
+    create_additional_payloads
 
-    assert_equal [["Chrome", 1]], Dashboard.browser_data("jumpstartlab")
-    assert_equal [["Chrome", 1]], Dashboard.browser_data("google")
+    assert_equal ({"Chrome"=>2}), Dashboard.browser_data("jumpstartlab")
   end
+
+  def test_os_data_across_all_requests
+    create_additional_payloads
+
+    assert_equal ({"Macintosh"=>2}), Dashboard.os_data("jumpstartlab")
+  end
+
   #
   # def test_os_data_across_all_requests
   #   create_source_and_payload

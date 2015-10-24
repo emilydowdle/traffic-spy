@@ -83,7 +83,9 @@ class Minitest::Test
   end
 
   def create_additional_payloads
-    source = Source.find_by(:identifier => "jumpstartlab")
+    source = Source.create({ identifier: "jumpstartlab",
+                             rootUrl:    "http://jumpstartlab.com" })
+
     source.payloads.create({ "url"=>"http://jumpstartlab.com/blog",
                              "requestedAt"=>"2014-02-16 21:38:28 -0700",
                              "respondedIn"=>37,
