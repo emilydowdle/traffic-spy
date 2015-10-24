@@ -15,6 +15,7 @@ module TrafficSpy
 
     get '/sources/:identifier' do |identifier|
       @identifier = identifier
+      @site_analytics = Dashboard.find_all_data_for_dashboard(identifier)
       Dashboard.sort_urls_by_visit(identifier)
       erb :sources
     end
@@ -63,6 +64,11 @@ module TrafficSpy
       end
 
 
+    end
+
+    get '/sources/IDENTIFIER/events' do
+      @events = EventManager.all
+      erb :events_index
     end
 
   end

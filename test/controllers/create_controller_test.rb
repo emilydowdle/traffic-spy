@@ -96,5 +96,13 @@ module TrafficSpy
       assert_equal 200, last_response.status
     end
 
+    def test_returns_url_data_for_dashboard
+      create_source_and_payload
+
+      get '/sources/jumpstartlab'
+
+      assert_equal 200, last_response.status
+    end
+
   end
 end
