@@ -1,6 +1,7 @@
-require_relative "../test_helper"
+require_relative '../test_helper'
 
-class EventTest < FeatureTest
+class UrlStatsTest < Minitest::Test
+
   def create_source_and_payload_for_nil_url
     source = Source.create({ identifier: "jumpstartlab",
                              rootUrl:    "http://jumpstartlab.com" })
@@ -19,15 +20,28 @@ class EventTest < FeatureTest
                              "ip"=>"63.29.38.211" })
   end
 
-  def test_user_is_able_to_view_aggregate_event_data
+  def test_user_can_see_page
     create_source_and_payload
+    visit '/sources/jumpstartlab/urls/blog'
 
-    visit '/sources/jumpstartlab/events'
-
-    event_data = sort_events_received
-
-    assert_equal "/sources/jumpstartlab/events", current_path
-    assert page.has_content?("Most received event to least received event")
+    assert_equal '/sources/jumpstartlab/urls/blog', current_path
+    assert page.has_content? ("List of Agents")
   end
 
+  def test_agents_exist
+    visit '/sources/jumpstartlab/urls/blog'
+
+    assert_equal '/sources/jumpstartlab/urls/blog', current_path
+    assert_equal 1, create_source_and_payload[:id]
+    assert_equal 2, create_source_and_payload[:id]
+    assert_equal 3, create_source_and_payload[:id]
+  end
+
+  def test_user_gets_message_url_not_requested
+    visit '/sources/jumpstartlab/urls/blog'
+
+    assert_equal '/sources/jumpstartlab/urls/blog', current_path
+    assert "URL has not been requested", create_source_and_payload_for_nil_url[:url].nil? || create_source_and_payload_for_nil_url[:url].empty?
+    binding.pry
+  end
 end

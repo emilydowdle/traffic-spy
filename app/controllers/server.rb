@@ -45,5 +45,16 @@ module TrafficSpy
       source = Source.find_by(:identifier)
     end
 
+    get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
+      @identifier = identifier
+      @relative_path = relative_path
+      erb :urls
+    end
+
+    get '/sources/IDENTIFIER/events' do
+      @events = EventManager.all
+      erb :events_index
+    end
+
   end
 end
