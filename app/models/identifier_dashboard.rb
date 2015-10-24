@@ -33,6 +33,19 @@ class Dashboard
     final_os_data
   end
 
+  def self.find_screen_resolution_across_requests(identifier)
+    source = Source.find_by(identifier: identifier)
+    widths = source.payloads.pluck("resolutionWidth")
+    heights = source.payloads.pluck("resolutionHeight")
+    create_resolution_hsh(widths.zip(heights))
+  end
+
+  def self.create_resolution_hsh(raw_resolution_arr, final_resolution_data={})
+    keys = raw_resolution_arr.uniq
+    keys.map {|key| final_resolution_data[key] = raw_resolution_arr.count(key)}
+    final_resolution_data
+  end
+
   # def self.sort_urls_by_visit(identifier)
   #   source = Source.find_by(identifier: identifier)
   #   source.payloads.group("url").count.sort_by {|k, v| v}.reverse
