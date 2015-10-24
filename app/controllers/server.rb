@@ -30,7 +30,6 @@ module TrafficSpy
     end
 
     post '/sources/:identifier/data' do
-      binding.pry
       process = Processor.payload_process(params)
       status process[:status]
       body process[:body]
@@ -49,14 +48,21 @@ module TrafficSpy
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
       @identifier = identifier
       @relative_path = relative_path
-      location = Source.find_by(identifier: identifier)
-      urls     = location.payloads.pluck(:url)
+      location   = Source.find_by(identifier: identifier)
+      urls       = location.payloads.pluck(:url)
+      @http_verb  = location.payloads.pluck(:requestType)
+      @response_time     = location.payloads.pluck(:respondedIn)
+      @request_type     = location.payloads.pluck(:requestType)
+      @referrer     = location.payloads.pluck(:referredBy)
+
       if urls.include?("#{location.rootUrl}/#{relative_path}")
         erb :urls
       else
         @error_message = "URL has not been requested"
         erb :error
       end
+
+      
     end
 
   end
