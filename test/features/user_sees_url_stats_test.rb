@@ -59,6 +59,7 @@ class UrlStatsTest < Minitest::Test
   end
 
 end
+
 #   def test_user_can_see_response_time
 #     create_source_and_payload
 #     visit '/source/jumpstartlab/urls/blog'
