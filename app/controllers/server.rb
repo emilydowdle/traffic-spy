@@ -10,7 +10,7 @@ module TrafficSpy
 
     get '/sources' do
       @sources = Source.all
-      erb :sources_index
+      erb :sources
     end
 
     get '/sources/:identifier' do |identifier|
@@ -49,7 +49,15 @@ module TrafficSpy
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
       @identifier = identifier
       @relative_path = relative_path
-      erb :urls
+      location = Source.find_by(identifier: identifier)
+      urls     = location.payloads.pluck(:url)
+
+      if urls.include?("#{location.rootUrl}/#{relative_path}")
+        erb :urls
+      else
+        @error_message = "URL has not been requested"
+        erb :error
+      end
     end
 
   end
