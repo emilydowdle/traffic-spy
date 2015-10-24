@@ -30,6 +30,12 @@ class DashboardTest < Minitest::Test
     assert_equal ({["1920", "1280"]=>2}), Dashboard.find_screen_resolution_across_requests("jumpstartlab")
   end
 
+  def test_find_screen_resolution_all_requests
+    create_additional_payloads
+
+    assert_equal ({37=>2}), Dashboard.response_time_across_all_requests("jumpstartlab")
+  end
+
   #
   # def test_os_data_across_all_requests
   #   create_source_and_payload

@@ -46,36 +46,15 @@ class Dashboard
     final_resolution_data
   end
 
-  # def self.sort_urls_by_visit(identifier)
-  #   source = Source.find_by(identifier: identifier)
-  #   source.payloads.group("url").count.sort_by {|k, v| v}.reverse
-  # end
-  #
-  # def self.sort_urls_by_visit(identifier)
-  #   source = Source.find_by(identifier: identifier)
-  #   arr = source.payloads.group("url").count.sort_by {|k, v| v}.reverse
-  # end
-
-  # def sort_urls_by_visit(identifier, url_data={})
-  #   url_data = {}
-  #   source = Source.find_by(identifier: identifier)
-  #   source.payloads.each do |payload|
-  #     if url_data.has_key?(payload.url)
-  #       url_data[payload.url][:visited] +=1
-  #     else
-  #       url_data[payload.url] = { visited: 1 }
-  #     end
-  #     url_data.sort_by {|k, v| v}
-  #   end
-  #   url_data
-  # end
-
-  def display_browser_data(identifier)
-
+  def self.response_time_across_all_requests(identifier)
+    source = Source.find_by(identifier: identifier)
+    times = source.payloads.pluck("respondedIn")
+    response_time_data(times)
   end
 
-  def display_os_data(identifier)
-
+  def self.response_time_data(raw_response_time_arr, final_response_data={})
+    keys = raw_response_time_arr.uniq
+    keys.map {|key| final_response_data[key] = raw_response_time_arr.count(key)}
+    final_response_data
   end
-
 end
