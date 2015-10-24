@@ -40,12 +40,14 @@ class Minitest::Test
                       \"respondedIn\":37,
                       \"referredBy\":\"http://jumpstartlab.com\",
                       \"requestType\":\"GET\",
-                      \"parameters\":[],
                       \"eventName\": \"socialLogin\",
                       \"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",
                       \"resolutionWidth\":\"1920\",
                       \"resolutionHeight\":\"1280\",
-                      \"ip\":\"63.29.38.211\" }"}
+                      \"ip\":\"63.29.38.211\" }",
+      "splat"=>[],
+      "captures"=>["jumpstartlab"],
+      "identifier"=>"jumpstartlab"}
   end
 
   def multiple_payload(num)
@@ -55,7 +57,6 @@ class Minitest::Test
                       \"respondedIn\":37,
                       \"referredBy\":\"http://jumpstartlab.com\",
                       \"requestType\":\"GET\",
-                      \"parameters\":[],
                       \"eventName\": \"socialLogin\",
                       \"userAgent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17\",
                       \"resolutionWidth\":\"1920\",
@@ -73,7 +74,6 @@ class Minitest::Test
                              "respondedIn"=>37,
                              "referredBy"=>"http://jumpstartlab.com",
                              "requestType"=>"GET",
-                             "parameters"=>[],
                              "eventName"=>"socialLogin",
                              "userAgent"=>
                              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
@@ -121,7 +121,6 @@ class Minitest::Test
     payload_data[:respondedIn] = 37 if payload_data[:respondedIn].nil?
     payload_data[:referredBy] = "http://jumpstartlab.com" if payload_data[:referredBy].nil?
     payload_data[:requestType] = "GET" if payload_data[:requestType].nil?
-    payload_data[:parameters] = [] if payload_data[:parameters].nil?
     payload_data[:event_name] = "socialLogin" if payload_data[:eventName].nil?
     payload_data[:userAgent] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17" if payload_data[:user_agent].nil?
     payload_data[:resolutionWidth] = "1920" if payload_data[:resolutionWidth].nil?
@@ -133,7 +132,6 @@ class Minitest::Test
                            \"respondedIn\":#{payload_data[:respondedIn]},
                            \"referredBy\":\"#{payload_data[:referredBy]}\",
                            \"requestType\":\"#{payload_data[:requestType]}\",
-                           \"parameters\":[],
                            \"eventName\":\"#{payload_data[:eventName]}\",
                            \"userAgent\":\"#{payload_data[:userAgent]}\",
                            \"resolutionWidth\":\"#{payload_data[:resolutionWidth]}\",
@@ -150,7 +148,6 @@ class Minitest::Test
                              "respondedIn"=>37,
                              "referredBy"=>"http://jumpstartlab.com",
                              "requestType"=>"GET",
-                             "parameters"=>[],
                              "eventName"=>"socialLogin",
                              "userAgent"=>
                              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
@@ -168,7 +165,6 @@ class Minitest::Test
                              "respondedIn"=>20,
                              "referredBy"=>"http://jumpstartlab.com",
                              "requestType"=>"GET",
-                             "parameters"=>[],
                              "eventName"=>"socialLogin",
                              "userAgent"=>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
                              "resolutionWidth"=>"1920",
@@ -185,7 +181,6 @@ class Minitest::Test
                              "respondedIn"=>37,
                              "referredBy"=>"http://jumpstartlab.com",
                              "requestType"=>"GET",
-                             "parameters"=>[],
                              "eventName"=>"socialLogin",
                              "userAgent"=>
                              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
