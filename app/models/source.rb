@@ -12,12 +12,17 @@ class Source < ActiveRecord::Base
     end
   end
 
-  def sort_find_event_data_over_24hrs
-    event_hash = Hash.new(0)
-    payloads.inject(event_hash) do |event_hash, payload|
-      event_hash[payload.requestedAt] += 1
-      event_hash
-      p event_hash
+  def find_event_data_over_24hrs
+    event_hash = Hash.new
+    source = Source.find_by(identifier: identifier)
+    source.payloads.each do |payload|
+      hour = DateTime.parse(payload.requestedAt).hour
+      mapped = source.payloads.map { |i| hour }
+      check = source.payloads.pluck("requestedAt")
+      binding.pry
+      # {(payload.eventName) hour}.to_h
+      # event_hash
+      # p event_hash
     end
   end
 
