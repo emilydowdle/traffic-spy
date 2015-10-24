@@ -52,11 +52,24 @@ class UrlStatsTest < Minitest::Test
   def test_shows_which_http_verbs_have_been_used
     create_source_and_payload
     visit '/sources/jumpstartlab/urls/blog'
-
     within("#http_verbs") do
       assert page.has_content?("GET")
     end
   end
+
+  def test_user_sees_most_popular_referred_by
+    create_source_and_payload
+    create_source_and_payload
+    create_source_and_payload
+    visit '/sources/jumpstartlab/urls/blog'
+    save_and_open_page
+    within("#most_referred_by") do
+      assert page.has_content?("http://jumpstartlab.com")
+    end
+  end
+
+  def test_user_sees_most
+
 
 end
 
@@ -123,13 +136,6 @@ end
 #   #   end
 #   # end
 #   #
-#   # def test_most_popular_referred_by
-#   #   skip
-#   #   visit '/sources/jumpstartlab/urls/blog'
-#   #   within("#most_reffered_by") do
-#   #     assert page.has_content?("http://jumpstartlab.com")
-#   #   end
-#   # end
 #
 #   def test_most_popular_user_agents
 #

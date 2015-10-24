@@ -53,7 +53,7 @@ module TrafficSpy
       @http_verb  = location.payloads.pluck(:requestType)
       @response_time     = location.payloads.pluck(:respondedIn)
       @request_type     = location.payloads.pluck(:requestType)
-      @referrer     = location.payloads.pluck(:referredBy)
+      @referred_by     = location.payloads.pluck(:referredBy)
 
       if urls.include?("#{location.rootUrl}/#{relative_path}")
         erb :urls
@@ -62,7 +62,7 @@ module TrafficSpy
         erb :error
       end
 
-      
+
     end
 
   end

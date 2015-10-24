@@ -1,9 +1,12 @@
-<header>
+<h1><%= @identifier.capitalize + " Statistics" %> </h1>
   <div class='container'>
-    <h1 class="navbar-brand"><%= @identifier.capitalize %> Jumpstart Lab Statistics</h1>
     <div id="http_verbs">
       <lh>The HTTP Verb Used Is:</lh>
-      <%= @http_verb%>
+      <%= @http_verb %>
     </div>
+    <div id="most_referred_by">
+      <lh>Page Most Referred By:</lh>
+      <% @referred_by.each do |referrer| %>
+      <%= referrer %>
+      <% end %>
   </div>
-</header>
