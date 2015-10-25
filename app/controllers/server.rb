@@ -19,8 +19,8 @@ module TrafficSpy
       @site_analytics = Dashboard.find_all_data_for_dashboard(identifier)
       # @urls = @site_analytics[:url].each {|k, v| "#{k}: #{v}"}
 
-      @website = @site_analytics[:url][0].first
-      @website_freq = @site_analytics[:url][0].second
+      # @website = @site_analytics[:url][0].first
+      # @website_freq = @site_analytics[:url][0].second
       erb :sources_identifier
     end
 
