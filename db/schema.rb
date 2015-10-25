@@ -41,5 +41,9 @@ ActiveRecord::Schema.define(version: 20151022171434) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "urls", force: :cascade do |t|
+    t.text "url"
+  end
+
   add_foreign_key "payloads", "sources"
 end

@@ -10,12 +10,17 @@ module TrafficSpy
 
     get '/sources' do
       @sources = Source.all
+
       erb :sources
     end
 
     get '/sources/:identifier' do |identifier|
       @identifier = identifier
       @site_analytics = Dashboard.find_all_data_for_dashboard(identifier)
+      # @urls = @site_analytics[:url].each {|k, v| "#{k}: #{v}"}
+
+      # @website = @site_analytics[:url][0].first
+      # @website_freq = @site_analytics[:url][0].second
       erb :sources_identifier
     end
 
@@ -38,7 +43,7 @@ module TrafficSpy
 
     get '/sources/:identifier/events' do |identifier|
       @identifier = identifier
-      @events_received = Source.sort_events_received
+      @events_received = Source.sort_events_received(identifier)
       erb :events
     end
 
@@ -46,7 +51,7 @@ module TrafficSpy
       source = Source.find_by(:identifier)
       @event_data = Source.find_event_data_over_24hrs
       @event_overall = Source.find_times_event_received
-
+      erb :event_details
     end
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
@@ -54,14 +59,12 @@ module TrafficSpy
       @relative_path  = relative_path
       location        = Source.find_by(identifier: identifier)
       urls            = location.payloads.pluck(:url)
-
       @http_verb      = Payload.all.pluck(:requestType)
       @response_time  = Payload.all.pluck(:respondedIn)
       @request_type   = Payload.all.pluck(:requestType)
       @referred_by    = Payload.all.pluck(:referredBy)
       @agent          = Payload.all.pluck(:userAgent)
       @platform       = UserAgent.parse(@agent.join).platform
-
 
       if !urls.include?("#{location.rootUrl}/#{relative_path}")
         erb :error
