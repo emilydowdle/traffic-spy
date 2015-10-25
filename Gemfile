@@ -10,7 +10,6 @@ gem 'digest'
 gem 'table_print'
 gem 'useragent'
 
-
 group :development, :test do
   gem 'shotgun'
   gem 'minitest'

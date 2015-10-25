@@ -82,6 +82,42 @@ class Minitest::Test
                              "ip"=>"63.29.38.211" })
   end
 
+  def create_different_source_and_payload
+    source = Source.create({ identifier: "google",
+                             rootUrl:    "http://google.com" })
+
+    source.payloads.create({ "url"=>"http://google.com/video",
+                             "requestedAt"=>"2013-02-16 21:38:28 -0700",
+                             "respondedIn"=>39,
+                             "referredBy"=>"http://referredby.com",
+                             "requestType"=>"POST",
+                             "eventName"=>"socialLogin",
+                             "userAgent"=>
+                             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                             "resolutionWidth"=>"1280",
+                             "resolutionHeight"=>"720",
+                             "ip"=>"77.29.77.277" })
+  end
+
+  def source_and_payload(num)
+    num.times do |n|
+      source = Source.create({ identifier: "jumpstartlab#{n}",
+                               rootUrl:    "http://jumpstartlab#{n}.com" })
+
+      source.payloads.create({ "url"=>"http://jumpstartlab.com/bl#{n}og",
+                               "requestedAt"=>"2013-02-16 21:38:28 -07#{n}0",
+                               "respondedIn"=> 37 + "#{n}".to_i,
+                               "referredBy"=>"http://jumpstart#{n}lab.com",
+                               "requestType"=>"GET#{n}",
+                               "eventName"=>"socialLogin#{n}",
+                               "userAgent"=>
+                               "Mozilla/5.0#{n} (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                               "resolutionWidth"=>"19#{n}0",
+                               "resolutionHeight"=>"12#{n}0",
+                               "ip"=>"63.29.38.21#{n}" })
+    end
+  end
+
   def create_additional_payloads
     source = Source.create({ identifier: "jumpstartlab",
                              rootUrl:    "http://jumpstartlab.com" })
