@@ -6,7 +6,6 @@ class Source < ActiveRecord::Base
 
   def sort_events_received
     event_hash = Hash.new(0)
-    binding.pry
     payloads.inject(event_hash) do |event_hash, payload|
       event_hash[payload.eventName] += 1
       event_hash
@@ -35,14 +34,8 @@ class Source < ActiveRecord::Base
   end
 
   def find_times_event_received(event)
-    binding.pry
-    count = 0
-    payloads.select do |payload|
-      payload.event
-      count += 1
-
-    end
-
+    hash = sort_events_received
+    hash.fetch(event)
   end
 
 end
