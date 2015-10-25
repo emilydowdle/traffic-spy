@@ -4,7 +4,7 @@ require_relative '../controllers/server'
 class Dashboard
 
   def self.find_all_data_for_dashboard(identifier, data={})
-    if confirm_identifier_exists(identifier) == false
+    if confirm_identifier_exists(identifier).empty?
       body = "Identifier doesn't exist"
     else
       data[:url] = sort_urls_by_visit(identifier)
@@ -17,7 +17,7 @@ class Dashboard
   end
 
   def self.confirm_identifier_exists(identifier)
-    Source.all.include?(identifier)
+    Source.all.group("identifier").count
   end
 
   def self.sort_urls_by_visit(identifier)
