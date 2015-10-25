@@ -5,9 +5,10 @@ class Source < ActiveRecord::Base
   # has_many :events, through: :payloads
 
 
-  def sort_events_received
+  def self.sort_events_received(identifier)
     event_hash = Hash.new(0)
-    payloads.inject(event_hash) do |event_hash, payload|
+    source = Source.find_by(identifier: identifier)
+    source.payloads.inject(event_hash) do |event_hash, payload|
       event_hash[payload.eventName] += 1
       event_hash
     end
