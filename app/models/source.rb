@@ -3,6 +3,10 @@ class Source < ActiveRecord::Base
 
   has_many :payloads
   # has_many :events, through: :payloads
+  attr_accessor :time_match_hash
+
+  @time_match_hash = {1=> "12am - 1am",
+                      2=> "1am - 2am"}
 
   def sort_events_received
     event_hash = Hash.new(0)
