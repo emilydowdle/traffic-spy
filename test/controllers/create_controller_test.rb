@@ -19,7 +19,7 @@ module TrafficSpy
     def test_can_submit_post_and_get_200_ok
       post '/sources', { identifier: "something",
                          rootUrl:    "else" }
-
+binding.pry
       assert_equal 200, last_response.status
     end
 
