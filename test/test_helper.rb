@@ -80,7 +80,7 @@ class Minitest::Test
                              "resolutionWidth"=>"1920",
                              "resolutionHeight"=>"1280",
                              "ip"=>"63.29.38.211" })
-  end
+end
 
   def create_additional_payloads
     source = Source.create({ identifier: "jumpstartlab",
@@ -111,7 +111,6 @@ class Minitest::Test
                               "resolutionWidth"=>"1920",
                               "resolutionHeight"=>"1280",
                               "ip"=>"63.29.38.211" })
-
 
   end
 

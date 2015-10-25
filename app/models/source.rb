@@ -6,6 +6,7 @@ class Source < ActiveRecord::Base
 
   def sort_events_received
     event_hash = Hash.new(0)
+    binding.pry
     payloads.inject(event_hash) do |event_hash, payload|
       event_hash[payload.eventName] += 1
       event_hash
@@ -26,13 +27,22 @@ class Source < ActiveRecord::Base
       event_name = source.payloads.pluck("eventName")
     end
 
-    new = time_stamp.each do |i|
+    time_stamp.each do |i|
       hour << DateTime.parse(i).hour
     end
     event_hash = event_name.zip(hour).map {|k,v| {k=>v}}
     event_hash.uniq
-
   end
 
+  def find_times_event_received(event)
+    binding.pry
+    count = 0
+    payloads.select do |payload|
+      payload.event
+      count += 1
+
+    end
+
+  end
 
 end
