@@ -16,8 +16,7 @@ module TrafficSpy
     get '/sources/:identifier' do |identifier|
       @identifier = identifier
       @site_analytics = Dashboard.find_all_data_for_dashboard(identifier)
-      Dashboard.sort_urls_by_visit(identifier)
-      erb :sources
+      erb :sources_identifier
     end
 
     not_found do
@@ -47,7 +46,7 @@ module TrafficSpy
       source = Source.find_by(:identifier)
       @event_data = Source.find_event_data_over_24hrs
       @event_overall = Source.find_times_event_received
-      
+
     end
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
