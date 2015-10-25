@@ -1,7 +1,6 @@
 class Processor
 
   def self.payload_process(params)
-    binding.pry
     source = Source.find_by(identifier: params[:identifier])
     digest = Digest::SHA2.hexdigest(params["payload"])
     if params["payload"].empty? || params["payload"].nil?
