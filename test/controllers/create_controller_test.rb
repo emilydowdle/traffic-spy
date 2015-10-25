@@ -13,13 +13,14 @@ module TrafficSpy
 
     def test_returns_400_if_missing_title
       post '/sources', { rootUrl:    "else" }
+
       assert_equal 400, last_response.status
     end
 
     def test_can_submit_post_and_get_200_ok
       post '/sources', { identifier: "something",
                          rootUrl:    "else" }
-binding.pry
+
       assert_equal 200, last_response.status
     end
 
@@ -42,10 +43,9 @@ binding.pry
                          rootUrl:    "else" }
 
       assert_equal 200, last_response.status
-
+      
       post '/sources', { identifier: "something",
                          rootUrl:    "something else" }
-
 
       assert_equal 403, last_response.status
       assert_equal "Identifier already exists", last_response.body
@@ -56,7 +56,6 @@ binding.pry
                          rootUrl:    "something else" }
 
       get '/sources/wrong-identifier'
-
       assert last_response.body.include?("Identifier doesn't exist")
     end
 
@@ -65,7 +64,6 @@ binding.pry
                          rootUrl:    "something else" }
 
       get '/sources/something'
-
       assert_equal 200, last_response.status
     end
 
@@ -74,7 +72,6 @@ binding.pry
                          rootUrl:    "http://jumpstartlab.com" }
 
       post '/sources/jumpstartlab/data', standard_payload
-
       assert_equal 200, last_response.status
     end
 
@@ -83,9 +80,7 @@ binding.pry
                          rootUrl:    "http://jumpstartlab.com" }
 
       post '/sources/jumpstartlab/data', standard_payload
-
       get '/sources/jumpstartlab'
-
       assert_equal 200, last_response.status
     end
 
@@ -93,7 +88,6 @@ binding.pry
       create_source_and_payload
 
       get '/sources/jumpstartlab'
-
       assert_equal 200, last_response.status
     end
 

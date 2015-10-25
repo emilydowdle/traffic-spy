@@ -2,8 +2,6 @@ class Source < ActiveRecord::Base
   validates_presence_of :identifier, :rootUrl
 
   has_many :payloads
-  # has_many :events, through: :payloads
-
 
   def self.sort_events_received(identifier)
     event_hash = Hash.new(0)

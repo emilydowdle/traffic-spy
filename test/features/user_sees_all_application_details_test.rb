@@ -9,7 +9,7 @@ class AppDetailTest < FeatureTest
     visit '/sources/jumpstartlab'
 
     assert_equal "/sources/jumpstartlab", current_path
-    # assert page.has_content?("http://jumpstartlab.com/blog")
+    
   end
 
 end

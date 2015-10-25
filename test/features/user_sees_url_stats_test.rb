@@ -104,10 +104,8 @@ class UrlStatsTest < Minitest::Test
 
   def test_user_sees_average_of_multiple_response_times
     create_source_and_payload
-    create_source_and_payload
     create_different_source_and_payload
-    create_different_source_and_payload
-  binding.pry
+
     visit '/sources/jumpstartlab/urls/blog'
     within("#average_response_time") do
       assert page.has_content? (39)
