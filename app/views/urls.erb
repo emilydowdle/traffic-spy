@@ -1,12 +1,46 @@
+<head>
 <h1><%= @identifier.capitalize + " Statistics" %> </h1>
+</head>
   <div class='container'>
+
+    <div class"col-md-6">
+
     <div id="http_verbs">
       <lh>The HTTP Verb Used Is:</lh>
-      <%= @http_verb %>
+      <% @http_verb.each do |verb| %>
+      <li><%= verb %></li>
+      <% end %>
     </div>
     <div id="most_referred_by">
       <lh>Page Most Referred By:</lh>
       <% @referred_by.each do |referrer| %>
-      <%= referrer %>
+      <li><%= referrer %></li>
       <% end %>
+    </div>
+    <div id="most_popular_agents">
+      <lh>Most Popular Agents:</lh>
+      <% @user_agent.each do |agent| %>
+      <li><%= agent %></li>
+      <% end %>
+    </div>
+    <div id="average_response_time">
+      <lh>Average response time:</lh>
+      <% @response_time.each do |time| %>
+      <li><%= time %></li>
+      <% end %>
+    </div>
+    <div id="longest_response_time">
+      <lh>Longest response time:</lh>
+      <% @response_time.each do |time| %>
+      <li><%= time %></li>
+      <% end %>
+    </div>
+    <div id="shortest_response_time">
+      <lh>Shortest Response Time:</lh>
+      <% @response_time.each do |time| %>
+      <li><%= time %></li>
+      <% end %>
+    </div>
+    </div>
+
   </div>

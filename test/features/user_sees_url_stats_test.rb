@@ -2,24 +2,6 @@ require_relative '../test_helper'
 
 class UrlStatsTest < Minitest::Test
 
-# def create_source_and_payload_for_nil_url
-#   source = Source.create({ identifier: "jumpstartlab",
-#                            rootUrl:    "http://jumpstartlab.com" })
-#
-#   source.payloads.create({ "url"=>"",
-#                            "requestedAt"=>"2013-02-16 21:38:28 -0700",
-#                            "respondedIn"=>37,
-#                            "referredBy"=>"http://jumpstartlab.com",
-#                            "requestType"=>"GET",
-#                            "parameters"=>[],
-#                            "eventName"=>"socialLogin",
-#                            "userAgent"=> "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-#                            "resolutionWidth"=>"1920",
-#                            "resolutionHeight"=>"1280",
-#                            "ip"=>"63.29.38.211" })
-#
-# end
-#
   def create_source_and_payload
     source = Source.create({ identifier: "jumpstartlab",
                              rootUrl:    "http://jumpstartlab.com" })
@@ -62,14 +44,43 @@ class UrlStatsTest < Minitest::Test
     create_source_and_payload
     create_source_and_payload
     visit '/sources/jumpstartlab/urls/blog'
-    save_and_open_page
     within("#most_referred_by") do
       assert page.has_content?("http://jumpstartlab.com")
     end
   end
 
-  def test_user_sees_most
+  def test_user_sees_most_popular_user_agents
+    create_source_and_payload
+    visit '/sources/jumpstartlab/urls/blog'
+    within("#most_popular_agents") do
+      assert page.has_text? ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17")
+    end
+  end
 
+  def test_user_sees_average_response_time
+    create_source_and_payload
+    visit '/sources/jumpstartlab/urls/blog'
+    within("#average_response_time") do
+      assert page.has_text? (37)
+    end
+  end
+
+  def test_user_sees_longest_response_time
+    create_source_and_payload
+    visit '/sources/jumpstartlab/urls/blog'
+    within("#longest_response_time") do
+      assert page.has_text? (37)
+    end
+  end
+
+  def test_user_sees_shortest_response_time
+    create_source_and_payload
+    visit '/sources/jumpstartlab/urls/blog'
+    save_and_open_page
+    within("#shortest_response_time") do
+      assert page.has_text? (37)
+    end
+  end
 
 end
 
