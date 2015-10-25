@@ -39,11 +39,15 @@ module TrafficSpy
 
     get '/sources/:identifier/events' do |identifier|
       @identifier = identifier
+      @events_received = Source.sort_events_received
       erb :events
     end
 
     get '/sources/:identifier/events/:eventname' do
       source = Source.find_by(:identifier)
+      @event_data = Source.find_event_data_over_24hrs
+      @event_overall = Source.find_times_event_received
+      
     end
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
@@ -63,8 +67,6 @@ module TrafficSpy
       else
         erb :urls
       end
-
-
     end
 
     get '/sources/IDENTIFIER/events' do
