@@ -57,7 +57,7 @@ module TrafficSpy
       @referred_by    = Payload.all.pluck(:referredBy)
       @agent          = Payload.all.pluck(:userAgent)
       @platform       = UserAgent.parse(@agent.join).platform
-
+binding.pry
 
       if !urls.include?("#{location.rootUrl}/#{relative_path}")
         erb :error
