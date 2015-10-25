@@ -65,7 +65,7 @@ class Minitest::Test
                              "resolutionWidth"=>"1920",
                              "resolutionHeight"=>"1280",
                              "ip"=>"63.29.38.211" })
-  end
+end
 
   def create_different_source_and_payload
     source = Source.create({ identifier: "google",
@@ -113,7 +113,6 @@ class Minitest::Test
                               "resolutionWidth"=>"1920",
                               "resolutionHeight"=>"1280",
                               "ip"=>"63.29.38.211" })
-
 
   end
 
