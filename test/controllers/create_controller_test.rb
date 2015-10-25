@@ -57,7 +57,7 @@ binding.pry
 
       get '/sources/wrong-identifier'
 
-      assert_equal "That identifier does not exist", last_response.body
+      assert last_response.body.include?("Identifier doesn't exist")
     end
 
     def test_registered_user_can_reach_the_dashboard

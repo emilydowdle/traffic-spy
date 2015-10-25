@@ -5,7 +5,7 @@ module TrafficSpy
   class Server < Sinatra::Base
 
     get '/' do
-      erb :index
+      redirect :sources
     end
 
     get '/sources' do
@@ -16,8 +16,7 @@ module TrafficSpy
     get '/sources/:identifier' do |identifier|
       @identifier = identifier
       @site_analytics = Dashboard.find_all_data_for_dashboard(identifier)
-      Dashboard.sort_urls_by_visit(identifier)
-      erb :sources
+      erb :sources_identifier
     end
 
     not_found do
@@ -55,7 +54,7 @@ module TrafficSpy
       @relative_path  = relative_path
       location        = Source.find_by(identifier: identifier)
       urls            = location.payloads.pluck(:url)
-      
+
       @http_verb      = Payload.all.pluck(:requestType)
       @response_time  = Payload.all.pluck(:respondedIn)
       @request_type   = Payload.all.pluck(:requestType)
@@ -63,7 +62,7 @@ module TrafficSpy
       @agent          = Payload.all.pluck(:userAgent)
       @platform       = UserAgent.parse(@agent.join).platform
 
-binding.pry
+
       if !urls.include?("#{location.rootUrl}/#{relative_path}")
         erb :error
         @error_message = "URL has not been requested"
