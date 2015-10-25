@@ -15,8 +15,7 @@ class EventTest < Minitest::Test
     create_source_and_payload
     create_additional_payloads
     source = Source.find_by(identifier: "jumpstartlab")
-    # binding.pry
-    assert_equal({"socialLogin"=> "1pm", "socialLogin"=> "2pm", "bannerClick"=> "10am"}, source.find_event_data_over_24hrs)
+    assert_equal({"socialLogin"=> 21, "socialLogin"=> 10, "bannerClick"=> 19}, source.find_event_data_over_24hrs)
 
   end
 

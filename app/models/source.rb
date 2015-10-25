@@ -14,16 +14,24 @@ class Source < ActiveRecord::Base
 
   def find_event_data_over_24hrs
     event_hash = Hash.new
+    event_name = []
+    time_stamp = []
+    hour = []
     source = Source.find_by(identifier: identifier)
     source.payloads.each do |payload|
-      hour = DateTime.parse(payload.requestedAt).hour
-      mapped = source.payloads.map { |i| hour }
-      check = source.payloads.pluck("requestedAt")
-      binding.pry
-      # {(payload.eventName) hour}.to_h
-      # event_hash
-      # p event_hash
+      time_stamp = source.payloads.pluck("requestedAt")
     end
+
+    source.payloads.each do |payload|
+      event_name = source.payloads.pluck("eventName")
+    end
+
+    new = time_stamp.each do |i|
+      hour << DateTime.parse(i).hour
+    end
+    event_hash = event_name.zip(hour).map {|k,v| {k=>v}}
+    event_hash.uniq
+
   end
 
 
