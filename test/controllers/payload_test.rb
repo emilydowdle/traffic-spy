@@ -4,7 +4,6 @@ require_relative '../../app/models/payload_parser.rb'
 class PayloadTest < Minitest::Test
 
   def test_receives_success_200_ok
-    skip
     Source.create(identifier: "jumpstartlab" , rootUrl: "http://jumpstartlab.com")
     post '/sources/jumpstartlab/data', standard_payload
     assert_equal 200, last_response.status
@@ -20,13 +19,11 @@ class PayloadTest < Minitest::Test
 
   def test_receives_403_unregistered_user
     post '/sources/jumpstartlab/data', standard_payload
-    binding.pry
     assert_equal 403, last_response.status
     assert_equal "unregistered user", last_response.body
   end
 
   def test_receives_403_duplicate_payload
-    skip
     Source.create(identifier: "jumpstartlab" , rootUrl: "http://jumpstartlab.com")
     post '/sources/jumpstartlab/data', standard_payload
     assert_equal 200, last_response.status
