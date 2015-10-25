@@ -63,12 +63,8 @@ binding.pry
         erb :error
         @error_message = "URL has not been requested"
       else
-
         erb :urls
-
       end
-
-
     end
 
     get '/sources/IDENTIFIER/events' do

@@ -4,22 +4,29 @@
   <div class='container'>
 
     <div id="http_verbs">
-      <lh>The HTTP Verb Used Is:</lh>
-      <% @http_verb.each do |verb| %>
-      <li><%= verb %></li>
-      <% end %>
+      <lh>The HTTP Verb Most Used Is:</lh>
+      <% freq = @http_verb.inject(Hash.new(0)) { |h,v| h[v] += 1; h } %>
+      <%= freq.max_by { |v| freq[v] }.first %>
+      <lh> with a frequency of</lh>
+      <%= freq.max_by { |v| freq[v] }.second %>
     </div>
 
     <div id="most_referred_by">
       <lh>Page Most Referred By:</lh>
-      <% @referred_by.each do |referrer| %>
-      <li><%= referrer %></li>
-      <% end %>
+      <% freq = @referred_by.inject(Hash.new(0)) { |h,v| h[v] += 1; h } %>
+      <% word = freq.max_by { |v| freq[v] }.first %>
+      <% word = word.gsub("http://", "")%>
+      <% word = word.gsub(".com", "")%>
+      <%= word.capitalize %>
+      <lh> with a frequency of</lh>
+      <%= freq.max_by { |v| freq[v] }.second %>
     </div>
 
     <div id="most_popular_agents">
       <lh>Most Popular User Agents:</lh>
       <%= @platform %>
+      <lh> with a frequency of</lh>
+      <%= freq.max_by { |v| freq[v] }.second %>
     </div>
 
     <div id="average_response_time">
