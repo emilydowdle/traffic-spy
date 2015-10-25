@@ -1,52 +1,46 @@
-<header>
+<head>
+<h1><%= @identifier.capitalize + " Statistics" %> </h1>
+</head>
   <div class='container'>
-    <h1 class="navbar-brand"><%= @identifier.capitalize %> Jumpstart Lab Statistics</h1>
-    <div>
-    <div id="url_response_times">
 
-    </div>
+    <div class"col-md-6">
+
     <div id="http_verbs">
-    <ul>
-      <lh>HTTP verbs:</lh>
-      <% @http_verbs.each do |x| %>
-        <li><%= x %></li>
+      <lh>The HTTP Verb Used Is:</lh>
+      <% @http_verb.each do |verb| %>
+      <li><%= verb %></li>
       <% end %>
-    </ul>
     </div>
-<!--
-
-    <div id="url_response_times">
-      <ul>
-        <lh>URL Response times:</lh>
-        <li>Longest response time: <%= @url%></li>
-        <li>Shortest response time: <%= @url %></li>
-        <li>Average response time: <%= @url %></li>
-      </ul>
+    <div id="most_referred_by">
+      <lh>Page Most Referred By:</lh>
+      <% @referred_by.each do |referrer| %>
+      <li><%= referrer %></li>
+      <% end %>
     </div>
-    <div id="most_reffered_by">
-    <ol>
-      <lh>Most referred by:</lh>
-        <% @referred.each do |x| %>
-          <li><%= x %></li>
-        <% end %>
-    </ol>
+    <div id="most_popular_agents">
+      <lh>Most Popular Agents:</lh>
+      <% @user_agent.each do |agent| %>
+      <li><%= agent %></li>
+      <% end %>
     </div>
-
-    <div id="most_popular_user_agents">
-    <ol>
-      <lh>Most popular user agents:</lh>
-        <% @useragent.each do |x| %>
-          <li><%= x %></li>
-        <% end %>
-    </ol>
+    <div id="average_response_time">
+      <lh>Average response time:</lh>
+      <% @response_time.each do |time| %>
+      <li><%= time %></li>
+      <% end %>
     </div>
-    #
-        <p>
-          Which HTTP verbs have been used
-          <% verb.each do |verb| %>
-            <% verb
-          <%= @verb_count =>
-        </p> -->
+    <div id="longest_response_time">
+      <lh>Longest response time:</lh>
+      <% @response_time.each do |time| %>
+      <li><%= time %></li>
+      <% end %>
+    </div>
+    <div id="shortest_response_time">
+      <lh>Shortest Response Time:</lh>
+      <% @response_time.each do |time| %>
+      <li><%= time %></li>
+      <% end %>
+    </div>
+    </div>
 
   </div>
-</header>
