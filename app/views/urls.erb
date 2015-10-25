@@ -31,7 +31,7 @@
 
     <div id="average_response_time">
       <lh>Average Response Time:</lh>
-      <%= (@response_time.inject(:+))/(@response_time.length) %>
+      <%= (@response_time.inject(:+)).to_f/(@response_time.length).to_f %>
     </div>
 
     <div id="longest_response_time">

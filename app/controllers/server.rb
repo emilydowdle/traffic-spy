@@ -47,7 +47,7 @@ module TrafficSpy
       source = Source.find_by(:identifier)
       @event_data = Source.find_event_data_over_24hrs
       @event_overall = Source.find_times_event_received
-      
+
     end
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
@@ -55,7 +55,7 @@ module TrafficSpy
       @relative_path  = relative_path
       location        = Source.find_by(identifier: identifier)
       urls            = location.payloads.pluck(:url)
-      binding.pry
+
       @http_verb      = Payload.all.pluck(:requestType)
       @response_time  = Payload.all.pluck(:respondedIn)
       @request_type   = Payload.all.pluck(:requestType)
@@ -63,7 +63,6 @@ module TrafficSpy
       @agent          = Payload.all.pluck(:userAgent)
       @platform       = UserAgent.parse(@agent.join).platform
 
-binding.pry
       if !urls.include?("#{location.rootUrl}/#{relative_path}")
         erb :error
         @error_message = "URL has not been requested"
