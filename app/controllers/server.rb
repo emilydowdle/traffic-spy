@@ -51,14 +51,15 @@ module TrafficSpy
       @relative_path  = relative_path
       location        = Source.find_by(identifier: identifier)
       urls            = location.payloads.pluck(:url)
+      binding.pry
       @http_verb      = Payload.all.pluck(:requestType)
       @response_time  = Payload.all.pluck(:respondedIn)
       @request_type   = Payload.all.pluck(:requestType)
       @referred_by    = Payload.all.pluck(:referredBy)
       @agent          = Payload.all.pluck(:userAgent)
       @platform       = UserAgent.parse(@agent.join).platform
-binding.pry
 
+binding.pry
       if !urls.include?("#{location.rootUrl}/#{relative_path}")
         erb :error
         @error_message = "URL has not been requested"
