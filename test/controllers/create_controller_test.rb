@@ -43,7 +43,7 @@ module TrafficSpy
                          rootUrl:    "else" }
 
       assert_equal 200, last_response.status
-      
+
       post '/sources', { identifier: "something",
                          rootUrl:    "something else" }
 
@@ -56,7 +56,8 @@ module TrafficSpy
                          rootUrl:    "something else" }
 
       get '/sources/wrong-identifier'
-      assert last_response.body.include?("Identifier doesn't exist")
+
+      assert last_response.body.include?("404 - Not Found")
     end
 
     def test_registered_user_can_reach_the_dashboard
