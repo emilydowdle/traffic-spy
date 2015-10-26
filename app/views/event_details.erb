@@ -4,7 +4,7 @@
     <div class='container'>
       <div class='container'>
         <h1 class="navbar-brand"> Events</h1>
-        <h6><u>Most received event to least received event</u></h6>
+        <h6><u>Hour by hour breakdown of when the event was received</u></h6>
         <% @event_analytics[:breakdown].each do |k, v| %>
         <%= "#{k} --- #{v}" %>
           <br>

@@ -84,10 +84,6 @@ class EventTest < FeatureTest
     create_event_test_payloads
     visit '/sources/jumpstartlab/events/socialLogin'
     assert page.has_content? ("Hour by hour breakdown of when the event was received")
-
   end
-
-
-
 
 end

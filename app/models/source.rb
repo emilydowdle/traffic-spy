@@ -65,6 +65,20 @@ class Source < ActiveRecord::Base
     hash.fetch(event)
   end
 
+  def self.create_breakdown_hash(identifier)
+    skip
+    test_hash = find_event_data_over_24hrs(identifier)
+    # new_hash = test_hash.inject(Hash.new(0)) do |hash, payload|
+    #   hash[payload.values] += 1
+    #   hash
+    # end
+    new_hash = test_hash.group_by do |hash, payload|
+      hash.values
+      hash
+    end
+
+  end
+
   def self.find_all_data_for_event_page(identifier, data={})
       data[:events] = sort_events_received(identifier)
       data[:breakdown] = find_event_data_over_24hrs(identifier)
