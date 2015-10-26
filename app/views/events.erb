@@ -4,7 +4,13 @@
     <div class='container'>
       <div class='container'>
         <h1 class="navbar-brand"> Events</h1>
-        <p>Most received event to least received event</p>
+        <h6>Most received event to least received event</h6>
+        <% @event_analytics[:events].each do |k, v| %>
+          <%= "#{k}: --- #{v}" %>
+          <br>
+        <% end %>
+
         <p>Hyperlinks of each event to view event specific data</p>
+        <%= @events_received.keys.first %>
       </div>
     </div>

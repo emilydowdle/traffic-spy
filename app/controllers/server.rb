@@ -43,6 +43,7 @@ module TrafficSpy
 
     get '/sources/:identifier/events' do |identifier|
       @identifier = identifier
+      @event_analytics = Source.find_all_data_for_event_page(identifier)
       @events_received = Source.sort_events_received(identifier)
       erb :events
     end
