@@ -16,8 +16,13 @@ module TrafficSpy
 
     get '/sources/:identifier' do |identifier|
       @identifier = identifier
-      @site_analytics = Dashboard.find_all_data_for_dashboard(identifier)
-      erb :sources_identifier
+      source = Source.find_by(identifier: @identifier)
+      if source.nil?
+        erb :error
+      else
+        @site_analytics = Dashboard.find_all_data_for_dashboard(@identifier)
+        erb :sources_identifier
+      end
     end
 
     not_found do
@@ -39,13 +44,14 @@ module TrafficSpy
 
     get '/sources/:identifier/events' do |identifier|
       @identifier = identifier
-      @event_analytics = Source.find_all_data_for_event_page(identifier)
+      @events_received = Source.sort_events_received(identifier)
       erb :events
     end
 
-    get '/sources/:identifier/events/:eventname' do |identifier, eventname|
-      @identifier = identifier
-      @event_analytics = Source.find_all_data_for_event_page(eventname)
+    get '/sources/:identifier/events/:eventname' do
+      source = Source.find_by(:identifier)
+      @event_data = Source.find_event_data_over_24hrs
+      @event_overall = Source.find_times_event_received
       erb :event_details
     end
 

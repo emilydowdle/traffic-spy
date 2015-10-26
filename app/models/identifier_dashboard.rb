@@ -4,20 +4,12 @@ require_relative '../controllers/server'
 class Dashboard
 
   def self.find_all_data_for_dashboard(identifier, data={})
-    if confirm_identifier_exists(identifier).empty?
-      body = "Identifier doesn't exist"
-    else
-      data[:url] = sort_urls_by_visit(identifier)
-      data[:browser] = browser_data(identifier)
-      data[:operating_system] = os_data(identifier)
-      data[:screen_resolution] = find_screen_resolution_across_requests(identifier)
-      data[:response_time] = response_time_across_all_requests(identifier)
-      data
-    end
-  end
-
-  def self.confirm_identifier_exists(identifier)
-    Source.all.group("identifier").count
+    data[:url] = sort_urls_by_visit(identifier)
+    data[:browser] = browser_data(identifier)
+    data[:operating_system] = os_data(identifier)
+    data[:screen_resolution] = find_screen_resolution_across_requests(identifier)
+    data[:response_time] = response_time_across_all_requests(identifier)
+    data
   end
 
   def self.sort_urls_by_visit(identifier)
