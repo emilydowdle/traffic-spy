@@ -11,12 +11,13 @@ module TrafficSpy
     get '/sources' do
       @sources = Source.all
 
-      erb :sources
+      erb :sources_identifier
     end
 
     get '/sources/:identifier' do |identifier|
       @identifier = identifier
       @site_analytics = Dashboard.find_all_data_for_dashboard(identifier)
+      binding.pry
       erb :sources_identifier
     end
 
@@ -40,6 +41,7 @@ module TrafficSpy
     get '/sources/:identifier/events' do |identifier|
       @identifier = identifier
       @event_analytics = Source.find_all_data_for_event_page(identifier)
+      
       erb :events
     end
 
