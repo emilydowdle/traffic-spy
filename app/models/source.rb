@@ -5,8 +5,8 @@ class Source < ActiveRecord::Base
 
   def self.sort_events_received(identifier)
     event_hash = Hash.new(0)
-    source = Source.find_by(identifier: identifier)
-    source.payloads.inject(event_hash) do |event_hash, payload|
+    payload_new = Payload.all
+    payload_new.inject(event_hash) do |event_hash, payload|
       event_hash[payload.eventName] += 1
       event_hash
     end
@@ -56,9 +56,15 @@ class Source < ActiveRecord::Base
     event_hash.uniq
   end
 
-  def find_times_event_received(event)
-    hash = sort_events_received
+  def self.find_times_event_received(event, identifier)
+    hash = sort_events_received(identifier)
     hash.fetch(event)
   end
+
+  def self.find_all_data_for_event_page(identifier, data={})
+      data[:events] = sort_events_received(identifier)
+      data
+  end
+
 
 end

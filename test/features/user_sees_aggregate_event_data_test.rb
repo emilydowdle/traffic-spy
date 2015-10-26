@@ -55,16 +55,32 @@ class EventTest < FeatureTest
 
   def test_user_can_see_page
     create_source_and_payload
-    
+
     visit '/sources/jumpstartlab/events'
     assert page.has_text? ("Events")
   end
 
   def test_user_sees_most_received_event_to_least_received_event
     create_event_test_payloads
-    binding.pry
     visit '/sources/jumpstartlab/events'
     assert page.has_content? ("Most received event to least received event")
   end
+
+  def test_user_sees_event_frequency_data
+    create_event_test_payloads
+    visit '/sources/jumpstartlab/events'
+
+    assert page.has_text?(2)
+  end
+
+  def test_user_sees_event_names
+    create_event_test_payloads
+    visit '/sources/jumpstartlab/events'
+    #save_and_open_page
+    assert page.has_content? ("socialLogin")
+  end
+
+
+
 
 end

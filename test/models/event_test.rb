@@ -49,22 +49,20 @@ class EventTest < Minitest::Test
 
   def test_events_sorted_by_visit
     create_event_test_payloads
-    source = Source.find_by(identifier: "jumpstartlab")
-    assert_equal({"socialLogin"=> 2, "bannerClick"=> 1}, source.sort_events_received)
+    assert_equal({"socialLogin"=> 2, "bannerClick"=> 1}, Source.sort_events_received("jumpstartlab"))
 
   end
 
   def test_find_event_data_over_24hrs
     create_event_test_payloads
     source = Source.find_by(identifier: "jumpstartlab")
-    assert_equal([{"socialLogin"=>"9pm - 10pm"}, {"socialLogin"=>"9am - 10am"}, {"bannerClick"=>"7pm - 8pm"}], source.find_event_data_over_24hrs)
+    assert_equal([{"bannerClick"=>"7pm - 8pm"}, {"socialLogin"=>"9am - 10am"}, {"socialLogin"=>"9pm - 10pm"}], source.find_event_data_over_24hrs)
   end
 
   def test_it_finds_how_many_total_times_event_recieved
     create_event_test_payloads
-    source = Source.find_by(identifier: "jumpstartlab")
     event = "socialLogin"
-    assert_equal(2, source.find_times_event_received(event))
+    assert_equal(2, Source.find_times_event_received(event, "jumpstartlab"))
   end
 
 end
