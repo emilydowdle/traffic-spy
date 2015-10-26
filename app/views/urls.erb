@@ -14,7 +14,7 @@ lll<head>
     </thead>
     <tbody>
               <tr>
-                <td><div id="http_verbs"><lh>HTTP Verb Most Used</lh></td>
+                <div id="http_verbs"><td><lh>HTTP Verb Most Used</lh></td>
                   <% freq = @http_verb.inject(Hash.new(0)) { |h,v| h[v] += 1; h } %>
                   <td><%= freq.max_by { |v| freq[v] }.first %></td>
                   <td><%= freq.max_by { |v| freq[v] }.second %></td>

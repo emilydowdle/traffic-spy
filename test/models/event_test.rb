@@ -50,7 +50,6 @@ class EventTest < Minitest::Test
   def test_events_sorted_by_visit
     create_event_test_payloads
     assert_equal({"socialLogin"=> 2, "bannerClick"=> 1}, Source.sort_events_received("jumpstartlab"))
-
   end
 
   def test_find_event_data_over_24hrs

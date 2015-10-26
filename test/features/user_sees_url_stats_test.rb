@@ -35,6 +35,7 @@ class UrlStatsTest < Minitest::Test
   end
 
   def test_that_url_does_not_exist_receives_error
+
     create_source_and_payload
     visit '/sources/jumpstartlab/urls/asdf'
     assert page.has_content? ("URL has not been requested")
@@ -44,72 +45,76 @@ class UrlStatsTest < Minitest::Test
   def test_shows_which_http_verbs_have_been_used
     create_source_and_payload
     visit '/sources/jumpstartlab/urls/blog'
-    within("#http_verbs") do
+
+    # within("#http_verbs") do
       assert_equal '/sources/jumpstartlab/urls/blog', current_path
       assert page.has_content?("GET")
-    end
+    # end
   end
 
   def test_user_sees_most_popular_referred_by
+
     create_source_and_payload
     visit '/sources/jumpstartlab/urls/blog'
     within("#most_referred_by") do
       assert_equal '/sources/jumpstartlab/urls/blog', current_path
-      # assert page.has_content?("http://jumpstartlab.com")
       assert page.has_content?("Most Referred By")
     end
   end
 
   def test_user_sees_most_popular_user_agents
+
     create_source_and_payload
     visit '/sources/jumpstartlab/urls/blog'
-    within("#most_popular_agents") do
+
       assert_equal '/sources/jumpstartlab/urls/blog', current_path
       assert page.has_text? ("Macintosh")
       assert page.has_content? ("Most Popular User Agents")
-    end
   end
 
   def test_user_sees_average_response_time
+
     create_source_and_payload
     visit '/sources/jumpstartlab/urls/blog'
-    save_and_open_page
-    within("#average_response_time") do
+
       assert_equal '/sources/jumpstartlab/urls/blog', current_path
       assert page.has_text? (37)
       assert page.has_content? ("Average Response Time")
-    end
+
   end
 
   def test_user_sees_longest_response_time
+
     create_source_and_payload
     visit '/sources/jumpstartlab/urls/blog'
-    within("#longest_response_time") do
+
       assert_equal '/sources/jumpstartlab/urls/blog', current_path
       assert page.has_text? (37)
       assert page.has_text? ("Longest Response Time")
-    end
+
   end
 
   def test_user_sees_shortest_response_time
+
     create_source_and_payload
     create_different_source_and_payload
     visit '/sources/jumpstartlab/urls/blog'
-    within("#shortest_response_time") do
+
       assert_equal '/sources/jumpstartlab/urls/blog', current_path
       assert page.has_text? (37)
       assert page.has_content? ("Shortest Response Time")
-    end
+
   end
 
   def test_user_sees_average_of_multiple_response_times
+    
     create_source_and_payload
     create_different_source_and_payload
 
     visit '/sources/jumpstartlab/urls/blog'
-    within("#average_response_time") do
+
       assert page.has_content? (39)
       assert page.has_content? (37)
-    end
+
   end
 end
