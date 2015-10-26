@@ -1,48 +1,66 @@
 <head>
-<h1><%= @identifier.capitalize + " Statistics" %> </h1>
+<h1 class="center blue-text text-lighten-2"><%= @identifier.capitalize + " Statistics" %> </h1>
 </head>
   <div class='container'>
+    <div class='center'>
 
-    <div id="http_verbs">
-      <lh>The HTTP Verb Most Used Is:</lh>
-      <% freq = @http_verb.inject(Hash.new(0)) { |h,v| h[v] += 1; h } %>
-      <%= freq.max_by { |v| freq[v] }.first %>
-      <lh> with a frequency of</lh>
-      <%= freq.max_by { |v| freq[v] }.second %>
-    </div>
+<table class="striped z-depth-2 centered">
+    <thead>
+      <tr>
+        <th data-field="id">Category</th>
+        <th data-field="name">Type</th>
+        <th data-field="price">Frequency</th>
+      </tr>
+    </thead>
+    <tbody>
+              <tr>
+                <td><div id="http_verbs"><lh>HTTP Verb Most Used</lh></td>
+                  <% freq = @http_verb.inject(Hash.new(0)) { |h,v| h[v] += 1; h } %>
+                  <td><%= freq.max_by { |v| freq[v] }.first %></td>
+                  <td><%= freq.max_by { |v| freq[v] }.second %></td>
+                </div>
+              </tr>
 
-    <div id="most_referred_by">
-      <lh>Page Most Referred By:</lh>
-      <% freq = @referred_by.inject(Hash.new(0)) { |h,v| h[v] += 1; h } %>
-      <% word = freq.max_by { |v| freq[v] }.first %>
-      <% word = word.gsub("http://", "")%>
-      <% word = word.gsub(".com", "")%>
-      <%= word.capitalize %>
-      <lh> with a frequency of</lh>
-      <%= freq.max_by { |v| freq[v] }.second %>
-    </div>
+              <tr>
+                <td><div id="most_referred_by"><lh>Most Referred By</lh></td>
+                  <% freq = @referred_by.inject(Hash.new(0)) { |h,v| h[v] += 1; h } %>
+                  <% word = freq.max_by { |v| freq[v] }.first %>
+                  <% word = word.gsub("http://", "")%>
+                  <% word = word.gsub(".com", "")%>
+                  <% word = word.gsub("www.", "")%>
+                  <td><%= word.capitalize %></td>
+                  <td><%= freq.max_by { |v| freq[v] }.second %></td>
+              </tr>
 
-    <div id="most_popular_agents">
-      <lh>Most Popular User Agents:</lh>
-      <%= @platform %>
-      <lh> with a frequency of</lh>
-      <%= freq.max_by { |v| freq[v] }.second %>
-    </div>
+              <tr>
+                <td><div id="most_popular_agents"><lh>Most Popular User Agents</lh></td>
+                <% freq = @http_verb.inject(Hash.new(0)) { |h,v| h[v] += 1; h } %>
+                <td><%= @platform %></td>
+                <td><%= freq.max_by { |v| freq[v] }.second %></td>
+                </div>
+              </tr>
 
-    <div id="average_response_time">
-      <lh>Average Response Time:</lh>
-      <%= (@response_time.inject(:+))/(@response_time.length) %>
-    </div>
+              <tr>
+                <td><div id="average_response_time"><lh>Average Response Time</lh></td>
+                  <td>Seconds</td>
+                  <td><%= (@response_time.inject(:+))/(@response_time.length) %></td>
+                </div>
+              </tr>
 
-    <div id="longest_response_time">
-      <lh>Longest Response Time:</lh>
-      <%= @response_time.max %>
-    </div>
+              <tr>
+                <td><div id="longest_response_time"><lh>Longest Response Time</lh></td>
+                  <td> Seconds</td>
+                  <td><%= @response_time.max %></td>
+                </div>
+              </tr>
 
-    <div id="shortest_response_time">
-      <lh>Shortest Response Time:</lh>
-      <%= @response_time.min %>
-    </div>
-    </div>
+              <tr>
+                <td><div id="shortest_response_time"><lh>Shortest Response Time</lh></td>
+                  <td> Seconds</td>
+                  <td><%= @response_time.min %></td>
+                </div>
+              </tr>
+</table>
 
+    </div>
   </div>

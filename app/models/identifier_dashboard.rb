@@ -21,8 +21,8 @@ class Dashboard
   end
 
   def self.sort_urls_by_visit(identifier)
-      source = Source.find_by(identifier: identifier)
-      source.payloads.group("url").count.sort_by {|k, v| v}.reverse
+    source = Source.find_by(identifier: identifier)
+    source.payloads.group("url").count.sort_by {|k, v| v}.reverse
   end
 
   def self.browser_data(identifier)
