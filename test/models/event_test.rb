@@ -66,8 +66,9 @@ class EventTest < Minitest::Test
 
   def test_create_breakdown_hash
     create_event_test_payloads
-    assert_equal({"socialLogin"=> 2, "bannerClick"=> 1}, Source.create_breakdown_hash("jumpstartlab"))
-
+    assert_equal({{"socialLogin"=>"10pm - 11pm"}=>[{"socialLogin"=>"10pm - 11pm"}],
+ {"socialLogin"=>"10am - 11am"}=>[{"socialLogin"=>"10am - 11am"}],
+ {"bannerClick"=>"8pm - 9pm"}=>[{"bannerClick"=>"8pm - 9pm"}]}, Source.create_breakdown_hash("jumpstartlab"))
   end
 
 end
