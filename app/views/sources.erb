@@ -1,15 +1,8 @@
-<div class="divider"></div>
-  <div class="section">
-    <h5>URL Statistics</h5>
-    <p>Stuff</p>
-  </div>
-  <div class="divider"></div>
-  <div class="section">
-    <h5>Event Details</h5>
-    <p>Stuff</p>
-  </div>
-  <div class="divider"></div>
-  <div class="section">
-    <h5>U</h5>
-    <p>Stuff</p>
-  </div>
+<div class='container'>
+  <h1 class="center">Registered Sources</h1>
+
+    <% @sources.select(:identifier).each do |id| %>
+      <p><a href="/sources/<%= id.identifier %>"><%= id.identifier %></p>
+    <% end %>
+
+</div>
