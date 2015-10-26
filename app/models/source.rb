@@ -5,48 +5,52 @@ class Source < ActiveRecord::Base
 
   def self.sort_events_received(identifier)
     event_hash = Hash.new(0)
-    payload_new = Payload.all
-    payload_new.inject(event_hash) do |event_hash, payload|
+    payload_test = Payload.all
+    payload_test.inject(event_hash) do |event_hash, payload|
       event_hash[payload.eventName] += 1
       event_hash
     end
   end
 
-  def find_event_data_over_24hrs
-    time_match_hash = {1=> "midnight - 1am",
-      2=> "1am - 2am",
-      3=> "2am - 3am",
-      4=> "3am - 4am",
-      5=> "4am - 5am",
-      6=> "5am - 6am",
-      7=> "6am - 7am",
-      8=> "7am - 8am",
-      9=> "8am - 9am",
-      10=> "9am - 10am",
-      11=> "10am - 11am",
-      12=> "11am - noon",
-      13=> "noon - 1pm",
-      14=> "2pm - 3pm",
-      15=> "3pm - 4pm",
-      16=> "4pm - 5pm",
-      17=> "5pm - 6pm",
-      18=> "6pm - 7pm",
-      19=> "7pm - 8pm",
-      20=> "8pm - 9pm",
-      21=> "9pm - 10pm",
-      22=> "10pm - 11pm",
-      23=> "11pm - midnight" }
+  def self.find_event_data_over_24hrs(identifier)
+    payload_test = Payload.all
+    time_match_hash = {
+      0=> "midnight - 1am",
+      1=> "1am - 2am",
+      2=> "2am - 3am",
+      3=> "3am - 4a",
+      4=> "4am - 5am",
+      5=> "5am - 6amm",
+      6=> "6am - 7am",
+      7=> "7am - 8am",
+      8=> "8am - 9am",
+      9=> "9am - 10am",
+      10=> "10am - 11am",
+      11=> "11am - noon",
+      12=> "noon - 1pm",
+      13=> "2pm - 3pm",
+      14=> "3pm - 4pm",
+      15=> "4pm - 5pm",
+      16=> "5pm - 6pm",
+      17=> "6pm - 7pm",
+      18=> "7pm - 8pm",
+      19=> "8pm - 9pm",
+      20=> "9pm - 10pm",
+      21=> "10pm - 11pm",
+      22=> "11pm - midnight",
+      23=> "midnight - 1am",
+      24=> "next day"}
     event_hash = Hash.new
     event_name = []
     time_stamp = []
     hour = []
-    source = Source.find_by(identifier: identifier)
-    source.payloads.each do |payload|
-      time_stamp = source.payloads.pluck("requestedAt")
+
+    payload_test.each do |payload|
+      time_stamp = payload_test.pluck("requestedAt")
     end
 
-    source.payloads.each do |payload|
-      event_name = source.payloads.pluck("eventName")
+    payload_test.each do |payload|
+      event_name = payload_test.pluck("eventName")
     end
 
     time_stamp.each do |i|
@@ -63,6 +67,7 @@ class Source < ActiveRecord::Base
 
   def self.find_all_data_for_event_page(identifier, data={})
       data[:events] = sort_events_received(identifier)
+      data[:breakdown] = find_event_data_over_24hrs(identifier)
       data
   end
 

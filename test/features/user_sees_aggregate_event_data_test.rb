@@ -73,11 +73,18 @@ class EventTest < FeatureTest
     assert page.has_text?(2)
   end
 
-  def test_user_sees_event_names
+  def test_user_sees_event_names_as_hyperlink
     create_event_test_payloads
     visit '/sources/jumpstartlab/events'
-    #save_and_open_page
     assert page.has_content? ("socialLogin")
+    find_link('socialLogin').visible?
+  end
+
+  def test_user_can_view_event_application_events_details_page
+    create_event_test_payloads
+    visit '/sources/jumpstartlab/events/socialLogin'
+    assert page.has_content? ("Hour by hour breakdown of when the event was received")
+
   end
 
 

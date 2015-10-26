@@ -55,8 +55,7 @@ class EventTest < Minitest::Test
 
   def test_find_event_data_over_24hrs
     create_event_test_payloads
-    source = Source.find_by(identifier: "jumpstartlab")
-    assert_equal([{"bannerClick"=>"7pm - 8pm"}, {"socialLogin"=>"9am - 10am"}, {"socialLogin"=>"9pm - 10pm"}], source.find_event_data_over_24hrs)
+    assert_equal([{"socialLogin"=>"9pm - 10pm"}, {"socialLogin"=>"9am - 10am"}, {"bannerClick"=>"7pm - 8pm"}], Source.find_event_data_over_24hrs("jumpstartlab"))
   end
 
   def test_it_finds_how_many_total_times_event_recieved
