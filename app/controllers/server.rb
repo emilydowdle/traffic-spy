@@ -5,7 +5,14 @@ module TrafficSpy
   class Server < Sinatra::Base
 
     get '/' do
+
       erb :index
+    end
+
+    post '/' do |identifier|
+      @identifier = identifier
+
+      erb :sources_identifier
     end
 
     get '/sources' do
@@ -44,7 +51,12 @@ module TrafficSpy
     get '/sources/:identifier/events' do |identifier|
       @identifier = identifier
       @event_analytics = Source.find_all_data_for_event_page(identifier)
-      erb :events
+      if @event_analytics.nil?
+        @error_message = "No events have been defined"
+        erb :error
+      else
+        erb :events
+      end
     end
 
     get '/sources/:identifier/events/:eventname' do |identifier, eventname|
